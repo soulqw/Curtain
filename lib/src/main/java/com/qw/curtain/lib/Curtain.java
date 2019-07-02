@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 /**
  * @author cd5160866
  */
-public class GuideHelper {
+public class Curtain {
 
     private FragmentActivity activity;
 
@@ -23,18 +23,18 @@ public class GuideHelper {
 
     private boolean cancelBackPressed = true;
 
-    private int curtainColor = 0;
+    private int curtainColor = 0x88000000;
 
     private int topViewId;
 
     private int animationStyle = 0;
 
 
-    public GuideHelper(Fragment fragment) {
+    public Curtain(Fragment fragment) {
         this(fragment.getActivity());
     }
 
-    public GuideHelper(FragmentActivity activity) {
+    public Curtain(FragmentActivity activity) {
         this.activity = activity;
         this.hollows = new SparseArray<>();
     }
@@ -42,7 +42,7 @@ public class GuideHelper {
     /**
      * @param which 页面上任一要高亮的view
      */
-    public GuideHelper with(View which) {
+    public Curtain with(View which) {
         if (which.getId() == View.NO_ID) {
             throw new IllegalArgumentException("view must have an id");
         }
@@ -58,7 +58,7 @@ public class GuideHelper {
      *
      * @param which 该view对应的蒙层区域
      */
-    public GuideHelper withPadding(View which, int padding) {
+    public Curtain withPadding(View which, int padding) {
         if (which.getId() == View.NO_ID) {
             throw new IllegalArgumentException("view must have an id");
         }
@@ -77,7 +77,7 @@ public class GuideHelper {
      * @param width  宽
      * @param height 高
      */
-    public GuideHelper withSize(View which, int width, int height) {
+    public Curtain withSize(View which, int width, int height) {
         if (which.getId() == View.NO_ID) {
             throw new IllegalArgumentException("view must have an id");
         }
@@ -96,7 +96,7 @@ public class GuideHelper {
      * @param offset    偏移量 px
      * @param direction 偏移方向
      */
-    public GuideHelper withOffset(View which, int offset, @HollowInfo.direction int direction) {
+    public Curtain withOffset(View which, int offset, @HollowInfo.direction int direction) {
         if (which.getId() == View.NO_ID) {
             throw new IllegalArgumentException("view must have an id");
         }
@@ -111,7 +111,7 @@ public class GuideHelper {
     /**
      * 自定义的引导页蒙层和镂空部分View
      */
-    public GuideHelper setTopView(@LayoutRes int layoutId) {
+    public Curtain setTopView(@LayoutRes int layoutId) {
         this.topViewId = layoutId;
         return this;
     }
@@ -121,27 +121,27 @@ public class GuideHelper {
      *
      * @param color 颜色
      */
-    public GuideHelper setCurtainColor(int color) {
+    public Curtain setCurtainColor(int color) {
         this.curtainColor = color;
         return this;
     }
 
-    public GuideHelper setCurtainColorRes(@ColorRes int color) {
+    public Curtain setCurtainColorRes(@ColorRes int color) {
         this.curtainColor = color;
         return this;
     }
 
-    public GuideHelper setCancelBackPressed(boolean cancelBackPress) {
+    public Curtain setCancelBackPressed(boolean cancelBackPress) {
         this.cancelBackPressed = cancelBackPress;
         return this;
     }
 
-    public GuideHelper setCallBack(CallBack callBack) {
+    public Curtain setCallBack(CallBack callBack) {
         this.callBack = callBack;
         return this;
     }
 
-    public GuideHelper setAnimationStyle(@StyleRes int animation) {
+    public Curtain setAnimationStyle(@StyleRes int animation) {
         this.animationStyle = animation;
         return this;
     }
@@ -179,10 +179,11 @@ public class GuideHelper {
     }
 
     private void addHollows(GuideView guideView) {
+        HollowInfo[] tobeDraw = new HollowInfo[hollows.size()];
         for (int i = 0; i < hollows.size(); i++) {
-            HollowInfo hollowInfo = hollows.valueAt(i);
-            guideView.addHollowInfo(hollowInfo);
+            tobeDraw[i] = hollows.valueAt(i);
         }
+        guideView.setHollowInfo(tobeDraw);
     }
 
     public interface CallBack {

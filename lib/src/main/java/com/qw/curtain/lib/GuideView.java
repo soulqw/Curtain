@@ -35,7 +35,7 @@ public class GuideView extends View {
         init();
     }
 
-    public void addHollowInfo(@NonNull HollowInfo... hollows) {
+    public void setHollowInfo(@NonNull HollowInfo... hollows) {
         this.mHollows = hollows;
         postInvalidate();
     }

@@ -23,11 +23,11 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
 
     private FrameLayout contentView;
 
-    private int animationStyle = 0;
+    private int animationStyle = R.style.dialogWindowAnim;
 
     private Dialog dialog;
 
-    private GuideHelper.CallBack callBack;
+    private Curtain.CallBack callBack;
 
     private int topLayoutRes = 0;
 
@@ -47,7 +47,7 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
         this.animationStyle = animationStyle;
     }
 
-    public void setCallBack(GuideHelper.CallBack callBack) {
+    public void setCallBack(Curtain.CallBack callBack) {
         this.callBack = callBack;
     }
 
@@ -59,7 +59,7 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     public void updateHollows(HollowInfo... hollows) {
         GuideView guideView = contentView.findViewById(GUIDE_ID);
         if (null != guideView) {
-            guideView.addHollowInfo(hollows);
+            guideView.setHollowInfo(hollows);
         }
     }
 

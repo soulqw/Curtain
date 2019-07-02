@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes;
 /**
  * @author cd5160866
  */
-interface IGuide {
+public interface IGuide {
 
     void updateHollows(HollowInfo... hollows);
 
