@@ -16,6 +16,6 @@ public interface IGuide {
 
     <T extends View> T findViewByIdInTopView(@IdRes int id);
 
-    void dismiss();
+    void dismissGuide();
 
 }

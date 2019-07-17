@@ -13,11 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * @author cd5160866
  */
 public class GuideDialogFragment extends DialogFragment implements IGuide {
+
+    private static final int MAX_CHILD_COUNT = 2;
 
     private static final int GUIDE_ID = 0x3;
 
@@ -56,6 +59,17 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     }
 
     @Override
+    public void show(FragmentManager manager, String tag) {
+        try {
+            super.show(manager, tag);
+        } catch (Exception e) {
+            manager.beginTransaction()
+                    .add(this, tag)
+                    .commitAllowingStateLoss();
+        }
+    }
+
+    @Override
     public void updateHollows(HollowInfo... hollows) {
         GuideView guideView = contentView.findViewById(GUIDE_ID);
         if (null != guideView) {
@@ -80,6 +94,11 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
         return contentView.findViewById(id);
     }
 
+    @Override
+    public void dismissGuide() {
+        dismissAllowingStateLoss();
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -88,7 +107,11 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        try {
+            super.onActivityCreated(savedInstanceState);
+        } catch (Exception e) {
+            return;
+        }
         if (topLayoutRes != 0) {
             updateTopView();
         }
@@ -120,7 +143,7 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     }
 
     private void updateTopView() {
-        if (contentView.getChildCount() == 2) {
+        if (contentView.getChildCount() == MAX_CHILD_COUNT) {
             contentView.removeViewAt(1);
         }
         LayoutInflater.from(getActivity()).inflate(topLayoutRes, contentView, true);
