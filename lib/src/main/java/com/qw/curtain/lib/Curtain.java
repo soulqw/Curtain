@@ -117,7 +117,7 @@ public class Curtain {
     }
 
     /**
-     * 设置阴影部分颜色
+     * 设置蒙层背景颜色
      *
      * @param color 颜色
      */
@@ -131,16 +131,30 @@ public class Curtain {
         return this;
     }
 
+    /**
+     * 是否允许回退关闭蒙层
+     *
+     * @param cancelBackPress 是否允许回退关闭蒙层
+     */
     public Curtain setCancelBackPressed(boolean cancelBackPress) {
         this.cancelBackPressed = cancelBackPress;
         return this;
     }
 
+    /**
+     * 设置蒙层展示回调回调
+     * @param callBack 如果你需要监听的话
+     */
     public Curtain setCallBack(CallBack callBack) {
         this.callBack = callBack;
         return this;
     }
 
+    /**
+     * 设置蒙层出现的动画 默认渐隐
+     *
+     * @param animation 动画style
+     */
     public Curtain setAnimationStyle(@StyleRes int animation) {
         this.animationStyle = animation;
         return this;
