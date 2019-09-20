@@ -23,7 +23,7 @@ public class Curtain {
 
     private boolean cancelBackPressed = true;
 
-    private int curtainColor = 0x88000000;
+    private int curtainColor = 0xAA000000;
 
     private int topViewId;
 

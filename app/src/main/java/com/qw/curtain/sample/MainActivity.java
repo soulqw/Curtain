@@ -1,28 +1,18 @@
 package com.qw.curtain.sample;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-
-import android.view.MenuItem;
-
-import com.google.android.material.navigation.NavigationView;
-import com.qw.curtain.lib.Curtain;
-import com.qw.curtain.lib.IGuide;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.view.Menu;
+import com.qw.curtain.lib.Curtain;
+import com.qw.curtain.lib.IGuide;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,55 +22,72 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
-            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View drawerView) {
-                new Curtain(MainActivity.this)
-                        .with(findViewById(R.id.imageView))
-                        .setCallBack(new Curtain.CallBack() {
-                            @Override
-                            public void onShow(IGuide iGuide) {
-
-                            }
-
-                            @Override
-                            public void onDismiss(IGuide iGuide) {
-                                new Curtain(MainActivity.this)
-                                        .with(findViewById(R.id.textView))
-                                        .with(findViewById(R.id.rv))
-                                        .show();
-                            }
-                        }).show();
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
+            public void onDrawerOpened(View drawerView) {
+                showGuideLeft();
             }
         });
         toggle.syncState();
+        findViewById(R.id.btn_open_left).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+        //first guide
+        showInitGuide();
+    }
+
+    private void showInitGuide() {
+        new Curtain(MainActivity.this)
+                .with(findViewById(R.id.iv_guide_first))
+                .setCallBack(new Curtain.CallBack() {
+                    @Override
+                    public void onShow(final IGuide iGuide) {
+
+                    }
+
+                    @Override
+                    public void onDismiss(IGuide iGuide) {
+                        showSecondGuide();
+                    }
+                }).show();
+    }
+
+    private void showSecondGuide() {
+        new Curtain(MainActivity.this)
+                .with(findViewById(R.id.btn_open_left))
+                .setTopView(R.layout.view_guide)
+                .setCallBack(new Curtain.CallBack() {
+                    @Override
+                    public void onShow(final IGuide iGuide) {
+                        iGuide.findViewByIdInTopView(R.id.tv_i_know)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        iGuide.dismissGuide();
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onDismiss(IGuide iGuide) {
+
+                    }
+                }).show();
+    }
+
+    private void showGuideLeft() {
+        new Curtain(MainActivity.this)
+                .with(findViewById(R.id.textView))
+                .withPadding(findViewById(R.id.textView), 8)
+                .with(findViewById(R.id.rv))
+                .show();
     }
 
     @Override
