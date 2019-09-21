@@ -5,9 +5,15 @@
  - 高亮区域支持自定义大小、操作灵活
  - 顺应变化,基于Android X
  - 配置简单，导入方便
+## Installation：
 
+```java
+dependencies {
+    implementation 'com.github.soulqw:Curtain:0.0.1'
+}
+
+```
 ## Usage：
-
 - 仅仅是高亮某个View
 ```java
     private void showCurtain(){
