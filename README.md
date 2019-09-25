@@ -1,5 +1,6 @@
 # Curtain
- [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+ [![Hex.pm](https://img.shields.io/badge/download-0.0.1-green)](https://www.apache.org/licenses/LICENSE-2.0)
+ [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)]()
 #### 一个更简洁好用的高亮蒙层库：
  - 一行代码完成某个View,或者多个View的高亮展示
  - 高亮区域支持自定义大小、操作灵活
