@@ -1,6 +1,6 @@
 # Curtain
- [![Hex.pm](https://img.shields.io/badge/download-0.0.1-green)](https://www.apache.org/licenses/LICENSE-2.0)
- [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)]()
+ [![Hex.pm](https://img.shields.io/badge/download-0.0.3-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
+ [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 #### 一个更简洁好用的高亮蒙层库：
  - 一行代码完成某个View,或者多个View的高亮展示
  - 高亮区域支持自定义大小、操作灵活
@@ -10,7 +10,7 @@
 
 ```java
 dependencies {
-    implementation 'com.github.soulqw:Curtain:0.0.1'
+    implementation 'com.qw:curtain:0.0.3'
 }
 
 ```
