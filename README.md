@@ -1,11 +1,15 @@
 # Curtain
  [![Hex.pm](https://img.shields.io/badge/download-0.0.3-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
+ [![Hex.pm](https://img.shields.io/badge/Jetpack-AndroidX-orange)]()
  [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 #### 一个更简洁好用的高亮蒙层库：
  - 一行代码完成某个View,或者多个View的高亮展示
  - 高亮区域支持自定义大小、操作灵活
  - 顺应变化,基于Android X
  - 配置简单，导入方便
+ 
+ ![image](https://img-blog.csdnimg.cn/20191009181206920.png)
+
 ## Installation：
 
 ```java
