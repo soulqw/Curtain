@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showInitGuide() {
         new Curtain(MainActivity.this)
-                .with(findViewById(R.id.iv_guide_first))
+                .with(findViewById(R.id.btn_shape_round))
                 .setCallBack(new Curtain.CallBack() {
                     @Override
                     public void onShow(final IGuide iGuide) {
@@ -54,7 +54,18 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onDismiss(IGuide iGuide) {
-                        showSecondGuide();
+                        new Curtain(MainActivity.this)
+                                .with(findViewById(R.id.btn_shape_circle))
+                                .setCallBack(new Curtain.CallBack() {
+                                    @Override
+                                    public void onShow(final IGuide iGuide) {
+
+                                    }
+
+                                    @Override
+                                    public void onDismiss(IGuide iGuide) {
+                                    }
+                                }).show();
                     }
                 }).show();
     }

@@ -143,6 +143,7 @@ public class Curtain {
 
     /**
      * 设置蒙层展示回调回调
+     *
      * @param callBack 如果你需要监听的话
      */
     public Curtain setCallBack(CallBack callBack) {
@@ -163,6 +164,16 @@ public class Curtain {
     public void show() {
         if (hollows.size() == 0) {
             throw new IllegalStateException("with out any views");
+        }
+        View checkStatusView = hollows.valueAt(0).targetView;
+        if (checkStatusView.getWidth() == 0) {
+            checkStatusView.post(new Runnable() {
+                @Override
+                public void run() {
+                    show();
+                }
+            });
+            return;
         }
         GuideDialogFragment guider = new GuideDialogFragment();
         guider.setCancelable(cancelBackPressed);

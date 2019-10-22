@@ -7,15 +7,20 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.util.DisplayMetrics;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.view.View;
-import android.view.WindowManager;
-
-import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 
+import java.lang.reflect.Field;
+
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
+import static com.qw.curtain.lib.InnerUtils.getScreenHeight;
+import static com.qw.curtain.lib.InnerUtils.getScreenWidth;
+import static com.qw.curtain.lib.InnerUtils.getStatusBarHeight;
 
 /**
  * @author cd5160866
@@ -24,7 +29,7 @@ public class GuideView extends View {
 
     private HollowInfo[] mHollows;
 
-    private HashMap<HollowInfo, Rect> mPositionCache;
+    private OptimizedMap<HollowInfo, Rect> mPositionCache;
 
     private int mCurtainColor = 0x88000000;
 
@@ -47,7 +52,7 @@ public class GuideView extends View {
 
     private void init() {
         mPaint = new Paint(ANTI_ALIAS_FLAG);
-        mPositionCache = new HashMap<>(10);
+        mPositionCache = new OptimizedMap<>();
     }
 
     @Override
@@ -113,45 +118,67 @@ public class GuideView extends View {
             info.targetBound.left += info.getOffset(HollowInfo.HORIZONTAL);
         }
         //status bar height
-        info.targetBound.top -= getStatusBarHeight();
-        info.targetBound.bottom -= getStatusBarHeight();
-        canvas.drawRect(info.targetBound, mPaint);
+        info.targetBound.top -= getStatusBarHeight(getContext());
+        info.targetBound.bottom -= getStatusBarHeight(getContext());
+        if (!autoDrawShapeHollowIfNeeded(info, canvas)) {
+            canvas.drawRect(info.targetBound, mPaint);
+        }
         mPositionCache.put(info, info.targetBound);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(getScreenWidth(), getScreenHeight() * 2);
+        setMeasuredDimension(getScreenWidth(getContext()), getScreenHeight(getContext()) * 2);
     }
 
-    /**
-     * 获取屏幕的宽度
-     */
-    private int getScreenWidth() {
-        WindowManager wm = (WindowManager) getContext()
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(outMetrics);
-        return outMetrics.widthPixels;
-    }
-
-    /**
-     * 获取屏幕的高度
-     */
-    private int getScreenHeight() {
-        WindowManager wm = (WindowManager) getContext()
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(outMetrics);
-        return outMetrics.heightPixels;
-    }
-
-    private int getStatusBarHeight() {
-        int statusBarHeight = 0;
-        int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            statusBarHeight = getContext().getResources().getDimensionPixelSize(resourceId);
+    private boolean autoDrawShapeHollowIfNeeded(HollowInfo info, Canvas canvas) {
+        Drawable drawable = info.targetView.getBackground();
+        if (drawable instanceof GradientDrawable) {
+            drawGradientHollow(info, canvas, drawable);
+            return true;
         }
-        return statusBarHeight;
+        if (drawable instanceof StateListDrawable) {
+            if (drawable.getCurrent() instanceof GradientDrawable) {
+                drawGradientHollow(info, canvas, drawable.getCurrent());
+                return true;
+            }
+        }
+        return false;
     }
+
+    private void drawGradientHollow(HollowInfo info, Canvas canvas, Drawable drawable) {
+        Field fieldGradientState;
+        Object mGradientState = null;
+        int shape = GradientDrawable.RECTANGLE;
+        try {
+            fieldGradientState = Class.forName("android.graphics.drawable.GradientDrawable").getDeclaredField("mGradientState");
+            fieldGradientState.setAccessible(true);
+            mGradientState = fieldGradientState.get(drawable);
+            Field fieldShape = mGradientState.getClass().getDeclaredField("mShape");
+            fieldShape.setAccessible(true);
+            shape = (int) fieldShape.get(mGradientState);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        float mRadius = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            mRadius = ((GradientDrawable) drawable).getCornerRadius();
+        } else {
+            try {
+                Field fieldRadius = mGradientState.getClass().getDeclaredField("mRadius");
+                fieldRadius.setAccessible(true);
+                mRadius = (float) fieldRadius.get(mGradientState);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (shape == GradientDrawable.OVAL) {
+            canvas.drawOval(new RectF(info.targetBound.left, info.targetBound.top, info.targetBound.right, info.targetBound.bottom), mPaint);
+        } else {
+            float rad = Math.min(mRadius,
+                    Math.min(info.targetBound.width(), info.targetBound.height()) * 0.5f);
+            canvas.drawRoundRect(new RectF(info.targetBound.left, info.targetBound.top, info.targetBound.right, info.targetBound.bottom), rad, rad, mPaint);
+        }
+    }
+
 }

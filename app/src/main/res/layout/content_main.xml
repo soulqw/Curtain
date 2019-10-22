@@ -27,4 +27,30 @@
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
+    <TextView
+        android:id="@+id/btn_shape_round"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_shape_test"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="圆角"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/btn_shape_circle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_circle_green"
+        android:gravity="center"
+        android:text="圆形"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
 </LinearLayout>
