@@ -120,7 +120,9 @@ public class GuideView extends View {
         //status bar height
         info.targetBound.top -= getStatusBarHeight(getContext());
         info.targetBound.bottom -= getStatusBarHeight(getContext());
-        if (!autoDrawShapeHollowIfNeeded(info, canvas)) {
+        //绘制镂空区域
+        if (!drawHollowSpaceIfMatched(info, canvas)) {
+            //没有匹配上，默认降级方案：画一个矩形
             canvas.drawRect(info.targetBound, mPaint);
         }
         mPositionCache.put(info, info.targetBound);
@@ -131,12 +133,19 @@ public class GuideView extends View {
         setMeasuredDimension(getScreenWidth(getContext()), getScreenHeight(getContext()) * 2);
     }
 
-    private boolean autoDrawShapeHollowIfNeeded(HollowInfo info, Canvas canvas) {
+    private boolean drawHollowSpaceIfMatched(HollowInfo info, Canvas canvas) {
+        //user custom shape
+        if (null != info.shape) {
+            info.shape.drawShape(canvas, mPaint, info);
+            return true;
+        }
+        //android shape backGround
         Drawable drawable = info.targetView.getBackground();
         if (drawable instanceof GradientDrawable) {
             drawGradientHollow(info, canvas, drawable);
             return true;
         }
+        //android selector backGround
         if (drawable instanceof StateListDrawable) {
             if (drawable.getCurrent() instanceof GradientDrawable) {
                 drawGradientHollow(info, canvas, drawable.getCurrent());

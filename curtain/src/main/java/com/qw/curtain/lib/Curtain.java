@@ -10,7 +10,11 @@ import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.qw.curtain.lib.shape.Shape;
+
 /**
+ * https://github.com/soulqw/Curtain
+ *
  * @author cd5160866
  */
 public class Curtain {
@@ -28,7 +32,6 @@ public class Curtain {
     private int topViewId;
 
     private int animationStyle = 0;
-
 
     public Curtain(Fragment fragment) {
         this(fragment.getActivity());
@@ -105,6 +108,24 @@ public class Curtain {
             info = append(which);
         }
         info.setOffset(offset, direction);
+        return this;
+    }
+
+    /**
+     * 设置自定义形状
+     *
+     * @param which 目标view
+     * @param shape 形状
+     */
+    public Curtain withShape(View which, Shape shape) {
+        if (which.getId() == View.NO_ID) {
+            throw new IllegalArgumentException("view must have an id");
+        }
+        HollowInfo info = findHollow(which);
+        if (null == info) {
+            info = append(which);
+        }
+        info.setShape(shape);
         return this;
     }
 

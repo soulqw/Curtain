@@ -3,10 +3,12 @@ package com.qw.curtain.lib;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.IntDef;
+
+import com.qw.curtain.lib.shape.Shape;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import androidx.annotation.IntDef;
 
 /**
  * @author cd5160866
@@ -31,22 +33,36 @@ public class HollowInfo {
     /**
      * 目标View 用于定位和确定透明区域大小
      */
-    View targetView;
+    public View targetView;
 
     /**
      * 可自定义区域大小
      */
-    Rect targetBound;
+    public Rect targetBound;
 
     /**
      * 透明区域的padding
      */
-    int padding;
+    public int padding;
+
+    /**
+     * 指定的形状
+     */
+    public Shape shape;
 
     /**
      * 存偏移量和方向的变量
      */
     private int mOffsetMask;
+
+    /**
+     * 指定形状
+     *
+     * @param shape 形状
+     */
+    public void setShape(Shape shape) {
+        this.shape = shape;
+    }
 
     public HollowInfo(View targetView) {
         this.targetView = targetView;

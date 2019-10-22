@@ -13,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.qw.curtain.lib.Curtain;
 import com.qw.curtain.lib.IGuide;
+import com.qw.curtain.lib.shape.CircleShape;
+import com.qw.curtain.lib.shape.RoundShape;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private void showInitGuide() {
         new Curtain(MainActivity.this)
                 .with(findViewById(R.id.btn_shape_round))
+//                .withShape(findViewById(R.id.btn_shape_round),new RoundShape(24))
                 .setCallBack(new Curtain.CallBack() {
                     @Override
                     public void onShow(final IGuide iGuide) {
