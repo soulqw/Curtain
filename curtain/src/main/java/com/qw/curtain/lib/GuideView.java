@@ -139,6 +139,10 @@ public class GuideView extends View {
             info.shape.drawShape(canvas, mPaint, info);
             return true;
         }
+        //check need auto adapt if needed
+        if (!info.isAutoAdaptViewBackGround()) {
+            return false;
+        }
         //android shape backGround
         Drawable drawable = info.targetView.getBackground();
         if (drawable instanceof GradientDrawable) {

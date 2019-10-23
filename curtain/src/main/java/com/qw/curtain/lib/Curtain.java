@@ -46,13 +46,23 @@ public class Curtain {
      * @param which 页面上任一要高亮的view
      */
     public Curtain with(View which) {
+        return with(which, true);
+    }
+
+    /**
+     * @param which                     页面上任一要高亮的view
+     * @param isAutoAdaptViewBackGround 是否自动适配View背景形状 (不一定完全生效，如果无法满足的话，可自定义形状)
+     * @see #withShape(View, Shape)
+     */
+    public Curtain with(View which, boolean isAutoAdaptViewBackGround) {
         if (which.getId() == View.NO_ID) {
             throw new IllegalArgumentException("view must have an id");
         }
         HollowInfo info = findHollow(which);
         if (null == info) {
-            append(which);
+            info = append(which);
         }
+        info.setAutoAdaptViewBackGround(isAutoAdaptViewBackGround);
         return this;
     }
 

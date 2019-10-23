@@ -11,7 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.qw.curtain.lib.Curtain;
 import com.qw.curtain.lib.IGuide;
-import com.qw.curtain.lib.shape.CircleShape;
+import com.qw.curtain.lib.shape.RoundShape;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 .with(findViewById(R.id.btn_shape_circle))
                 .with(findViewById(R.id.btn_shape_custom))
                 //自定义高亮形状
-                .withShape(findViewById(R.id.btn_shape_custom), new CircleShape())
+                .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(2))
                 //自定义高亮形状的Padding
                 .withPadding(findViewById(R.id.btn_shape_custom), 24)
                 .setTopView(R.layout.view_guide_1)

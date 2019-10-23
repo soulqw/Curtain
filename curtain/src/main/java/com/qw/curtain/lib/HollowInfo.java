@@ -24,6 +24,16 @@ public class HollowInfo {
 
     public static final int HORIZONTAL = 2 << SHIFT;
 
+    /**
+     * 是否按照View背景形状自适应
+     */
+    private boolean autoAdaptViewBackGround = false;
+
+    /**
+     * 存偏移量和方向的变量
+     */
+    private int mOffsetMask;
+
     @IntDef(flag = true,
             value = {VERTICAL, HORIZONTAL})
     @Retention(RetentionPolicy.SOURCE)
@@ -50,10 +60,9 @@ public class HollowInfo {
      */
     public Shape shape;
 
-    /**
-     * 存偏移量和方向的变量
-     */
-    private int mOffsetMask;
+    public void setAutoAdaptViewBackGround(boolean autoAdaptViewBackGround) {
+        this.autoAdaptViewBackGround = autoAdaptViewBackGround;
+    }
 
     /**
      * 指定形状
@@ -91,6 +100,10 @@ public class HollowInfo {
             return mOffsetMask & ~MODE_MASK;
         }
         return 0;
+    }
+
+    public boolean isAutoAdaptViewBackGround() {
+        return autoAdaptViewBackGround;
     }
 
     @Override
