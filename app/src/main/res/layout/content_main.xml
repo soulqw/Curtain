@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/iv_guide_first"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:background="@mipmap/ic_image" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".MainActivity"
+        tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:id="@+id/btn_open_left"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="#1C89EA"
-        android:gravity="center"
-        android:text="打开侧边栏"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
+        <View
+            android:id="@+id/iv_guide_first"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="@mipmap/ic_image" />
 
-    <TextView
-        android:id="@+id/btn_shape_round"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/selector_shape_test"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="圆角"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/btn_shape_circle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_circle_green"
+            android:gravity="center"
+            android:text="圆形"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/btn_shape_circle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_circle_green"
-        android:gravity="center"
-        android:text="圆形"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/btn_shape_custom"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_shape_test"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="自定义形状"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/btn_open_left"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_shape_blue"
+            android:gravity="center"
+            android:text="打开侧边栏"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+</ScrollView>

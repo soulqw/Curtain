@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-            tools:background="#66000000"
-             tools:ignore="HardcodedText">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="#66000000"
+    tools:ignore="HardcodedText">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="340dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="120dp"
         android:src="@mipmap/ic_virtual_line" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="380dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="100dp"
         android:text="侧边栏请点击这里也可以打开哦"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -27,14 +28,14 @@
         android:id="@+id/tv_i_know"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="80dp"
-        android:paddingBottom="8dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/shape_pill_white_hollow"
-        android:paddingEnd="28dp"
-        android:textColor="#FFFFFF"
         android:paddingStart="28dp"
         android:paddingTop="8dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="8dp"
         android:text="我知道了"
-        />
+        android:textColor="#FFFFFF" />
+
 </FrameLayout>

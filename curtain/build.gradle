@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 4
+        versionName "0.0.4"
     }
 
     buildTypes {
@@ -33,7 +33,7 @@ def gitUrl = 'https://github.com/soulqw/Curtain.git'
 
 def libName = "curtain"
 group = "com.qw"
-version = "0.0.3"
+version = "0.0.4"
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs

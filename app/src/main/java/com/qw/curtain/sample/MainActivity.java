@@ -1,8 +1,6 @@
 package com.qw.curtain.sample;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,7 +12,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.qw.curtain.lib.Curtain;
 import com.qw.curtain.lib.IGuide;
 import com.qw.curtain.lib.shape.CircleShape;
-import com.qw.curtain.lib.shape.RoundShape;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,38 +42,45 @@ public class MainActivity extends AppCompatActivity {
         showInitGuide();
     }
 
+    /**
+     * 高亮图片
+     * 高亮圆形文字，自动识别圆形背景
+     * 高亮自定义按钮，形状自定圆角程度
+     */
     private void showInitGuide() {
         new Curtain(MainActivity.this)
-                .with(findViewById(R.id.btn_shape_round))
-//                .withShape(findViewById(R.id.btn_shape_round),new RoundShape(24))
+                .with(findViewById(R.id.iv_guide_first))
+                .with(findViewById(R.id.btn_shape_circle))
+                .with(findViewById(R.id.btn_shape_custom))
+                //自定义高亮形状
+                .withShape(findViewById(R.id.btn_shape_custom), new CircleShape())
+                //自定义高亮形状的Padding
+                .withPadding(findViewById(R.id.btn_shape_custom), 24)
+                .setTopView(R.layout.view_guide_1)
                 .setCallBack(new Curtain.CallBack() {
                     @Override
                     public void onShow(final IGuide iGuide) {
-
+                        iGuide.findViewByIdInTopView(R.id.tv_i_know)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        iGuide.dismissGuide();
+                                    }
+                                });
                     }
 
                     @Override
                     public void onDismiss(IGuide iGuide) {
-                        new Curtain(MainActivity.this)
-                                .with(findViewById(R.id.btn_shape_circle))
-                                .setCallBack(new Curtain.CallBack() {
-                                    @Override
-                                    public void onShow(final IGuide iGuide) {
-
-                                    }
-
-                                    @Override
-                                    public void onDismiss(IGuide iGuide) {
-                                    }
-                                }).show();
+                        showThirdGuide();
                     }
                 }).show();
     }
 
-    private void showSecondGuide() {
+
+    private void showThirdGuide() {
         new Curtain(MainActivity.this)
                 .with(findViewById(R.id.btn_open_left))
-                .setTopView(R.layout.view_guide)
+                .setTopView(R.layout.view_guide_2)
                 .setCallBack(new Curtain.CallBack() {
                     @Override
                     public void onShow(final IGuide iGuide) {
@@ -114,18 +118,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
