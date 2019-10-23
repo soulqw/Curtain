@@ -1,9 +1,10 @@
 # Curtain
- [![Hex.pm](https://img.shields.io/badge/download-0.0.3-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
+ [![Hex.pm](https://img.shields.io/badge/download-0.0.4-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
  [![Hex.pm](https://img.shields.io/badge/Jetpack-AndroidX-orange)]()
  [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 #### 一个更简洁好用的高亮蒙层库：
  - 一行代码完成某个View,或者多个View的高亮展示
+ - 自动识别圆角背景,也可以自定义高亮形状
  - 高亮区域支持自定义大小、操作灵活
  - 顺应变化,基于Android X
  - 配置简单，导入方便
@@ -14,7 +15,7 @@
 
 ```java
 dependencies {
-    implementation 'com.qw:curtain:0.0.3'
+    implementation 'com.qw:curtain:0.0.4'
 }
 
 ```
@@ -89,6 +90,8 @@ dependencies {
     private void showCurtain() {
         new Curtain(MainActivity.this)
                 .with(findViewById(R.id.imageView))
+                //自定义某个view的高亮形状
+                .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(12))
                 //是否允许回退关闭蒙层
                 .setCancelBackPressed(false)
                 // 设置蒙层背景颜色
@@ -99,6 +102,6 @@ dependencies {
     }
 ```
 
-![image](https://upload-images.jianshu.io/upload_images/4346197-8a512957a5a472c6.gif)
+![image](https://upload-images.jianshu.io/upload_images/11595074-e0a033aac3dd8975.gif?imageMogr2/auto-orient/strip)
 
 [Github地址](https://github.com/soulqw/Curtain)

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 .with(findViewById(R.id.btn_shape_circle))
                 .with(findViewById(R.id.btn_shape_custom))
                 //自定义高亮形状
-                .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(2))
+                .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(12))
                 //自定义高亮形状的Padding
                 .withPadding(findViewById(R.id.btn_shape_custom), 24)
                 .setTopView(R.layout.view_guide_1)
