@@ -3,9 +3,12 @@ package com.qw.curtain.lib;
 import android.graphics.Rect;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.AdapterView;
 
+import androidx.annotation.CheckResult;
 import androidx.annotation.ColorRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -55,14 +58,8 @@ public class Curtain {
      * @see #withShape(View, Shape)
      */
     public Curtain with(View which, boolean isAutoAdaptViewBackGround) {
-        if (which.getId() == View.NO_ID) {
-            throw new IllegalArgumentException("view must have an id");
-        }
-        HollowInfo info = findHollow(which);
-        if (null == info) {
-            info = append(which);
-        }
-        info.setAutoAdaptViewBackGround(isAutoAdaptViewBackGround);
+        getHollowInfo(which)
+                .setAutoAdaptViewBackGround(isAutoAdaptViewBackGround);
         return this;
     }
 
@@ -72,14 +69,7 @@ public class Curtain {
      * @param which 该view对应的蒙层区域
      */
     public Curtain withPadding(View which, int padding) {
-        if (which.getId() == View.NO_ID) {
-            throw new IllegalArgumentException("view must have an id");
-        }
-        HollowInfo info = findHollow(which);
-        if (null == info) {
-            info = append(which);
-        }
-        info.padding = padding;
+        getHollowInfo(which).padding = padding;
         return this;
     }
 
@@ -91,14 +81,7 @@ public class Curtain {
      * @param height 高
      */
     public Curtain withSize(View which, int width, int height) {
-        if (which.getId() == View.NO_ID) {
-            throw new IllegalArgumentException("view must have an id");
-        }
-        HollowInfo info = findHollow(which);
-        if (null == info) {
-            info = append(which);
-        }
-        info.targetBound = new Rect(0, 0, width, height);
+        getHollowInfo(which).targetBound = new Rect(0, 0, width, height);
         return this;
     }
 
@@ -110,14 +93,7 @@ public class Curtain {
      * @param direction 偏移方向
      */
     public Curtain withOffset(View which, int offset, @HollowInfo.direction int direction) {
-        if (which.getId() == View.NO_ID) {
-            throw new IllegalArgumentException("view must have an id");
-        }
-        HollowInfo info = findHollow(which);
-        if (null == info) {
-            info = append(which);
-        }
-        info.setOffset(offset, direction);
+        getHollowInfo(which).setOffset(offset, direction);
         return this;
     }
 
@@ -128,14 +104,7 @@ public class Curtain {
      * @param shape 形状
      */
     public Curtain withShape(View which, Shape shape) {
-        if (which.getId() == View.NO_ID) {
-            throw new IllegalArgumentException("view must have an id");
-        }
-        HollowInfo info = findHollow(which);
-        if (null == info) {
-            info = append(which);
-        }
-        info.setShape(shape);
+        getHollowInfo(which).setShape(shape);
         return this;
     }
 
@@ -217,20 +186,13 @@ public class Curtain {
         guider.show(guideView);
     }
 
-    private HollowInfo findHollow(View view) {
-        for (int i = 0; i < hollows.size(); i++) {
-            HollowInfo info = hollows.valueAt(i);
-            if (info.targetView == view) {
-                return info;
-            }
+    private HollowInfo getHollowInfo(View which) {
+        HollowInfo info = hollows.get(which.hashCode());
+        if (null == info) {
+            info = new HollowInfo(which);
+            info.targetView = which;
+            hollows.append(which.hashCode(), info);
         }
-        return null;
-    }
-
-    private HollowInfo append(View view) {
-        HollowInfo info = new HollowInfo(view);
-        info.targetView = view;
-        hollows.append(view.getId(), info);
         return info;
     }
 
@@ -240,6 +202,30 @@ public class Curtain {
             tobeDraw[i] = hollows.valueAt(i);
         }
         guideView.setHollowInfo(tobeDraw);
+    }
+
+    public static class ViewGetter {
+
+        /**
+         * 获取AdapterView 如(ListView,GridView 等中的ChildItem)
+         *
+         * @param targetContainer such as ListView
+         * @param position        你需要的位置
+         * @return ItemView
+         * @see android.widget.ListView
+         * @see android.widget.GridView
+         */
+        @Nullable
+        @CheckResult
+        public static View getFromAdapterView(AdapterView targetContainer, int position) {
+            View view;
+            try {
+                view = targetContainer.getChildAt(position - targetContainer.getFirstVisiblePosition());
+            } catch (Exception e) {
+                return null;
+            }
+            return view;
+        }
     }
 
     public interface CallBack {
