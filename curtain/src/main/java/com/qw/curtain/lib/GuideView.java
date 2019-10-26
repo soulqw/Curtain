@@ -29,7 +29,7 @@ public class GuideView extends View {
 
     private HollowInfo[] mHollows;
 
-    private OptimizedMap<HollowInfo, Rect> mPositionCache;
+    private OptimizedMap<HollowInfo, HollowInfo> mPositionCache;
 
     private int mCurtainColor = 0x88000000;
 
@@ -87,9 +87,9 @@ public class GuideView extends View {
         if (mHollows.length <= 0) {
             return;
         }
-        Rect fromCache = mPositionCache.get(info);
+        HollowInfo fromCache = mPositionCache.get(info);
         if (null != fromCache) {
-            canvas.drawRect(fromCache, mPaint);
+            realDrawHollows(fromCache, canvas);
             return;
         }
         if (null == info.targetBound) {
@@ -121,16 +121,23 @@ public class GuideView extends View {
         info.targetBound.top -= getStatusBarHeight(getContext());
         info.targetBound.bottom -= getStatusBarHeight(getContext());
         //绘制镂空区域
-        if (!drawHollowSpaceIfMatched(info, canvas)) {
-            //没有匹配上，默认降级方案：画一个矩形
-            canvas.drawRect(info.targetBound, mPaint);
-        }
-        mPositionCache.put(info, info.targetBound);
+        realDrawHollows(info, canvas);
+        mPositionCache.put(info, info);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(getScreenWidth(getContext()), getScreenHeight(getContext()) * 2);
+    }
+
+    /**
+     * 绘制镂空区域
+     */
+    private void realDrawHollows(HollowInfo info, Canvas canvas) {
+        if (!drawHollowSpaceIfMatched(info, canvas)) {
+            //没有匹配上，默认降级方案：画一个矩形
+            canvas.drawRect(info.targetBound, mPaint);
+        }
     }
 
     private boolean drawHollowSpaceIfMatched(HollowInfo info, Canvas canvas) {

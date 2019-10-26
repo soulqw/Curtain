@@ -27,7 +27,7 @@ public class HollowInfo {
     /**
      * 是否按照View背景形状自适应
      */
-    private boolean autoAdaptViewBackGround = false;
+    private boolean autoAdaptViewBackGround = true;
 
     /**
      * 存偏移量和方向的变量
@@ -108,8 +108,11 @@ public class HollowInfo {
 
     @Override
     public boolean equals(Object obj) {
-        HollowInfo target = (HollowInfo) obj;
-        return target.targetView == targetView;
+        if (obj instanceof HollowInfo) {
+            HollowInfo target = (HollowInfo) obj;
+            return target.targetView == targetView;
+        }
+        return super.equals(obj);
     }
 
     @Override
