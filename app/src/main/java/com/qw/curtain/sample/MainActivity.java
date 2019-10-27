@@ -22,4 +22,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, AdapterViewActivity.class));
     }
 
+    public void showRecyclerViewGuide(View view) {
+        startActivity(new Intent(this, RecyclerViewActivity.class));
+    }
+
 }
