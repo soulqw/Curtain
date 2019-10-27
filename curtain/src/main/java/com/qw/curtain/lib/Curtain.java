@@ -3,16 +3,15 @@ package com.qw.curtain.lib;
 import android.graphics.Rect;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.AdapterView;
 
-import androidx.annotation.CheckResult;
 import androidx.annotation.ColorRes;
 import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.qw.curtain.lib.debug.CurtainDebug;
 import com.qw.curtain.lib.shape.Shape;
 
 /**
@@ -48,7 +47,7 @@ public class Curtain {
     /**
      * @param which 页面上任一要高亮的view
      */
-    public Curtain with(View which) {
+    public Curtain with(@NonNull View which) {
         return with(which, true);
     }
 
@@ -57,7 +56,7 @@ public class Curtain {
      * @param isAutoAdaptViewBackGround 是否自动适配View背景形状 (不一定完全生效，如果无法满足的话，可自定义形状)
      * @see #withShape(View, Shape)
      */
-    public Curtain with(View which, boolean isAutoAdaptViewBackGround) {
+    public Curtain with(@NonNull View which, boolean isAutoAdaptViewBackGround) {
         getHollowInfo(which)
                 .setAutoAdaptViewBackGround(isAutoAdaptViewBackGround);
         return this;
@@ -68,7 +67,7 @@ public class Curtain {
      *
      * @param which 该view对应的蒙层区域
      */
-    public Curtain withPadding(View which, int padding) {
+    public Curtain withPadding(@NonNull View which, int padding) {
         getHollowInfo(which).padding = padding;
         return this;
     }
@@ -80,7 +79,7 @@ public class Curtain {
      * @param width  宽
      * @param height 高
      */
-    public Curtain withSize(View which, int width, int height) {
+    public Curtain withSize(@NonNull View which, int width, int height) {
         getHollowInfo(which).targetBound = new Rect(0, 0, width, height);
         return this;
     }
@@ -92,7 +91,7 @@ public class Curtain {
      * @param offset    偏移量 px
      * @param direction 偏移方向
      */
-    public Curtain withOffset(View which, int offset, @HollowInfo.direction int direction) {
+    public Curtain withOffset(@NonNull View which, int offset, @HollowInfo.direction int direction) {
         getHollowInfo(which).setOffset(offset, direction);
         return this;
     }
@@ -103,7 +102,7 @@ public class Curtain {
      * @param which 目标view
      * @param shape 形状
      */
-    public Curtain withShape(View which, Shape shape) {
+    public Curtain withShape(@NonNull View which, Shape shape) {
         getHollowInfo(which).setShape(shape);
         return this;
     }
@@ -163,7 +162,8 @@ public class Curtain {
 
     public void show() {
         if (hollows.size() == 0) {
-            throw new IllegalStateException("with out any views");
+            CurtainDebug.w(Constance.TAG, "with out any views");
+            return;
         }
         View checkStatusView = hollows.valueAt(0).targetView;
         if (checkStatusView.getWidth() == 0) {
@@ -204,30 +204,6 @@ public class Curtain {
         guideView.setHollowInfo(tobeDraw);
     }
 
-    public static class ViewGetter {
-
-        /**
-         * 获取AdapterView 如(ListView,GridView 等中的ChildItem)
-         *
-         * @param targetContainer such as ListView
-         * @param position        你需要的位置
-         * @return ItemView
-         * @see android.widget.ListView
-         * @see android.widget.GridView
-         */
-        @Nullable
-        @CheckResult
-        public static View getFromAdapterView(AdapterView targetContainer, int position) {
-            View view;
-            try {
-                view = targetContainer.getChildAt(position - targetContainer.getFirstVisiblePosition());
-            } catch (Exception e) {
-                return null;
-            }
-            return view;
-        }
-    }
-
     public interface CallBack {
 
         /**
@@ -241,4 +217,5 @@ public class Curtain {
         void onDismiss(IGuide iGuide);
 
     }
+
 }
