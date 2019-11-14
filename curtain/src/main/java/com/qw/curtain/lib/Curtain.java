@@ -21,19 +21,19 @@ import com.qw.curtain.lib.shape.Shape;
  */
 public class Curtain {
 
-    private FragmentActivity activity;
+    SparseArray<HollowInfo> hollows;
 
-    private SparseArray<HollowInfo> hollows;
+    boolean cancelBackPressed = true;
+
+    int curtainColor = 0xAA000000;
+
+    int topViewId;
+
+    int animationStyle = 0;
+
+    FragmentActivity activity;
 
     private CallBack callBack;
-
-    private boolean cancelBackPressed = true;
-
-    private int curtainColor = 0xAA000000;
-
-    private int topViewId;
-
-    private int animationStyle = 0;
 
     public Curtain(Fragment fragment) {
         this(fragment.getActivity());
@@ -196,7 +196,7 @@ public class Curtain {
         return info;
     }
 
-    private void addHollows(GuideView guideView) {
+    void addHollows(GuideView guideView) {
         HollowInfo[] tobeDraw = new HollowInfo[hollows.size()];
         for (int i = 0; i < hollows.size(); i++) {
             tobeDraw[i] = hollows.valueAt(i);

@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.qw.curtain.lib.Curtain;
+import com.qw.curtain.lib.CurtainFlow;
 import com.qw.curtain.lib.IGuide;
 import com.qw.curtain.lib.shape.RoundShape;
 
@@ -55,7 +56,34 @@ public class SimpleGuideActivity extends AppCompatActivity {
      * 高亮自定义按钮，形状自定圆角程度
      */
     private void showInitGuide() {
-        new Curtain(SimpleGuideActivity.this)
+//        new Curtain(SimpleGuideActivity.this)
+//                .with(findViewById(R.id.iv_guide_first))
+//                .with(findViewById(R.id.btn_shape_circle))
+//                .with(findViewById(R.id.btn_shape_custom))
+//                //自定义高亮形状
+//                .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(12))
+//                //自定义高亮形状的Padding
+//                .withPadding(findViewById(R.id.btn_shape_custom), 24)
+//                .setTopView(R.layout.view_guide_1)
+//                .setCallBack(new Curtain.CallBack() {
+//                    @Override
+//                    public void onShow(final IGuide iGuide) {
+//                        iGuide.findViewByIdInTopView(R.id.tv_i_know)
+//                                .setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        iGuide.dismissGuide();
+//                                    }
+//                                });
+//                    }
+//
+//                    @Override
+//                    public void onDismiss(IGuide iGuide) {
+//                        showThirdGuide();
+//                    }
+//                }).show();
+        CurtainFlow curtainFlow = new CurtainFlow();
+        curtainFlow.addCurtain(1,      new Curtain(SimpleGuideActivity.this)
                 .with(findViewById(R.id.iv_guide_first))
                 .with(findViewById(R.id.btn_shape_circle))
                 .with(findViewById(R.id.btn_shape_custom))
@@ -63,24 +91,9 @@ public class SimpleGuideActivity extends AppCompatActivity {
                 .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(12))
                 //自定义高亮形状的Padding
                 .withPadding(findViewById(R.id.btn_shape_custom), 24)
-                .setTopView(R.layout.view_guide_1)
-                .setCallBack(new Curtain.CallBack() {
-                    @Override
-                    public void onShow(final IGuide iGuide) {
-                        iGuide.findViewByIdInTopView(R.id.tv_i_know)
-                                .setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        iGuide.dismissGuide();
-                                    }
-                                });
-                    }
+                .setTopView(R.layout.view_guide_1));
+        curtainFlow.start();
 
-                    @Override
-                    public void onDismiss(IGuide iGuide) {
-                        showThirdGuide();
-                    }
-                }).show();
     }
 
 
