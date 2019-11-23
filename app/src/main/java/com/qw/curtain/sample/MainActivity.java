@@ -26,4 +26,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, RecyclerViewActivity.class));
     }
 
+    /**
+     * 在复杂多个引导的情况下推荐使用可有效减少方法嵌套
+     *
+     */
+    public void curtainFlow(View view) {
+        startActivity(new Intent(this, CurtainFlowGuideActivity.class));
+    }
+
 }

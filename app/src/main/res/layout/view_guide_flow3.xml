@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="#66000000"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom|center_horizontal"
+        android:layout_marginBottom="200dp"
+        android:text="可自定义形状和Padding"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_pill_white_hollow"
+            android:padding="8dp"
+            android:text="再看一遍"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_to_last"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_pill_white_hollow"
+            android:padding="8dp"
+            android:text="上一步"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_to_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pill_white_hollow"
+            android:padding="8dp"
+            android:text="结束"
+            android:textColor="#FFFFFF" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

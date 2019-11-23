@@ -8,10 +8,11 @@ import androidx.annotation.IdRes;
  * @author: george
  * @date: 2019-11-09
  */
-public interface ICurtainFlow {
+public interface CurtainFlowInterface {
 
     /**
      * 到下个
+     * 如果下个没有，即等于 finish()
      */
     void push();
 

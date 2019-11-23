@@ -31,6 +31,9 @@
         <activity
             android:name=".RecyclerViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CurtainFlowGuideActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

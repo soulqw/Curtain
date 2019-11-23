@@ -4,7 +4,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.qw.curtain.lib.debug.CurtainDebug;
-import com.qw.curtain.lib.flow.ICurtainFlow;
+import com.qw.curtain.lib.flow.CurtainFlowInterface;
 
 /**
  * manage a series of curtains
@@ -12,7 +12,7 @@ import com.qw.curtain.lib.flow.ICurtainFlow;
  * @author: george
  * @date: 2019-11-09
  */
-public class CurtainFlow implements ICurtainFlow {
+public class CurtainFlow implements CurtainFlowInterface {
 
     private SparseArray<Curtain> allCurtains;
 
@@ -149,7 +149,7 @@ public class CurtainFlow implements ICurtainFlow {
          * @param currentId   这一步的id
          * @param curtainFlow 整个Flow对象 可控制前进，回退，找到当前Curtain中的Id等
          */
-        void onProcess(int currentId, ICurtainFlow curtainFlow);
+        void onProcess(int currentId, CurtainFlowInterface curtainFlow);
 
     }
 
