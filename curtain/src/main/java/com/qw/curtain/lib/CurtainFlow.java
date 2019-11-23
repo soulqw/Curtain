@@ -10,7 +10,6 @@ import com.qw.curtain.lib.flow.CurtainFlowInterface;
  * manage a series of curtains
  *
  * @author: george
- * @date: 2019-11-09
  */
 public class CurtainFlow implements CurtainFlowInterface {
 

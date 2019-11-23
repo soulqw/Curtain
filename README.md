@@ -16,7 +16,7 @@
 
 ```java
 dependencies {
-    implementation 'com.qw:curtain:0.0.5'
+    implementation 'com.qw:curtain:0.0.6'
 }
 
 ```
