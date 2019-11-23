@@ -20,19 +20,31 @@ public class CurtainFlow implements ICurtainFlow {
 
     private int currentCurtainId = -1;
 
+    private CallBack callBack;
+
     public CurtainFlow() {
         allCurtains = new SparseArray<>();
     }
 
-    public void addCurtain(int key, Curtain curtain) {
-        allCurtains.append(key, curtain);
+    /**
+     * 需要协同的 Curtain
+     *
+     * @param curtainId 添加的curtain 会按照id大小顺序先后展示，id越小 优先级越高
+     * @param curtain   你构建的Curtain对象
+     */
+    public void addCurtain(int curtainId, Curtain curtain) {
+        allCurtains.append(curtainId, curtain);
     }
 
     public void start() {
         start(null);
     }
 
-    public void start(CallBack callBack) {
+    /**
+     * @param callBack 回调
+     */
+    public void start(final CallBack callBack) {
+        this.callBack = callBack;
         if (allCurtains.size() == 0) {
             return;
         }
@@ -47,50 +59,124 @@ public class CurtainFlow implements ICurtainFlow {
             checkStatusView.post(new Runnable() {
                 @Override
                 public void run() {
-                    start();
+                    start(callBack);
                 }
             });
             return;
         }
         guider = new GuideDialogFragment();
-        guider.setCancelable(curtain.cancelBackPressed);
-        guider.setAnimationStyle(curtain.animationStyle);
-        guider.setTopViewRes(curtain.topViewId);
-        GuideView guideView = new GuideView(curtain.activity);
-        guideView.setCurtainColor(curtain.curtainColor);
-        curtain.addHollows(guideView);
-        guider.show(guideView);
+        updateCurtainInfo(curtain);
+        guider.show();
         if (null != callBack) {
-            callBack.onStart(currentCurtainId, this);
+            callBack.onProcess(currentCurtainId, this);
         }
     }
 
     @Override
     public void push() {
+        int currentIndex = allCurtains.indexOfKey(currentCurtainId);
+        int nextIndex = currentIndex + 1;
+        Curtain nextNode = allCurtains.valueAt(nextIndex);
+        if (null != nextNode) {
+            doWhenCurtainUpdated(nextNode, nextIndex);
+        } else {
+            finish();
+        }
     }
 
     @Override
     public void pop() {
+        int currentIndex = allCurtains.indexOfKey(currentCurtainId);
+        int lastIndex = currentIndex - 1;
+        if (lastIndex < 0) {
+            return;
+        }
+        Curtain lastNode = allCurtains.valueAt(lastIndex);
+        if (null != lastNode) {
+            doWhenCurtainUpdated(lastNode, lastIndex);
+        }
     }
 
     @Override
-    public void toNodeById(int curtainId) {
+    public void toCurtainById(int curtainId) {
+        int targetIndex = allCurtains.indexOfKey(curtainId);
+        Curtain target = allCurtains.valueAt(targetIndex);
+        if (null != target) {
+            doWhenCurtainUpdated(target, targetIndex);
+        }
     }
 
     @Override
     public <T extends View> T findViewInCurrentCurtain(int id) {
+        if (null != guider) {
+            return guider.findViewByIdInTopView(id);
+        }
         return null;
     }
 
     @Override
     public void finish() {
+        if (guider != null) {
+            guider.dismissGuide();
+        }
     }
+
+    private void updateCurtainInfo(Curtain curtain) {
+        GuideView guideView = new GuideView(curtain.activity);
+        guideView.setCurtainColor(curtain.curtainColor);
+        curtain.addHollows(guideView);
+        guider.setGuideView(guideView);
+        guider.setCancelable(curtain.cancelBackPressed);
+        guider.setAnimationStyle(curtain.animationStyle);
+        guider.setTopViewRes(curtain.topViewId);
+    }
+
+    private void doWhenCurtainUpdated(Curtain curtain, int index) {
+        updateCurtainInfo(curtain);
+        guider.updateContent();
+        currentCurtainId = allCurtains.keyAt(index);
+        if (null != callBack) {
+            callBack.onProcess(currentCurtainId, this);
+        }
+    }
+
 
     public interface CallBack {
 
-        void onStart(int currentId, ICurtainFlow curtainFlow);
+        /**
+         * 每一步的Curtain展示将会回调
+         *
+         * @param currentId   这一步的id
+         * @param curtainFlow 整个Flow对象 可控制前进，回退，找到当前Curtain中的Id等
+         */
+        void onProcess(int currentId, ICurtainFlow curtainFlow);
 
     }
 
+    public static class Builder {
+
+        SparseArray<Curtain> sc;
+
+        public Builder() {
+            this.sc = new SparseArray<>();
+        }
+
+        /**
+         * 需要协同的 Curtain
+         *
+         * @param curtainId 添加的curtain 会按照id大小顺序先后展示，id越小 优先级越高
+         * @param curtain   你构建的Curtain对象
+         */
+        public Builder with(int curtainId, Curtain curtain) {
+            sc.append(curtainId, curtain);
+            return this;
+        }
+
+        public CurtainFlow create() {
+            CurtainFlow curtainFlow = new CurtainFlow();
+            curtainFlow.allCurtains = sc;
+            return curtainFlow;
+        }
+    }
 
 }

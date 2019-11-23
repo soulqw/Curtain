@@ -183,7 +183,16 @@ public class Curtain {
         GuideView guideView = new GuideView(activity);
         guideView.setCurtainColor(curtainColor);
         addHollows(guideView);
-        guider.show(guideView);
+        guider.setGuideView(guideView);
+        guider.show();
+    }
+
+    void addHollows(GuideView guideView) {
+        HollowInfo[] tobeDraw = new HollowInfo[hollows.size()];
+        for (int i = 0; i < hollows.size(); i++) {
+            tobeDraw[i] = hollows.valueAt(i);
+        }
+        guideView.setHollowInfo(tobeDraw);
     }
 
     private HollowInfo getHollowInfo(View which) {
@@ -194,14 +203,6 @@ public class Curtain {
             hollows.append(which.hashCode(), info);
         }
         return info;
-    }
-
-    void addHollows(GuideView guideView) {
-        HollowInfo[] tobeDraw = new HollowInfo[hollows.size()];
-        for (int i = 0; i < hollows.size(); i++) {
-            tobeDraw[i] = hollows.valueAt(i);
-        }
-        guideView.setHollowInfo(tobeDraw);
     }
 
     public interface CallBack {

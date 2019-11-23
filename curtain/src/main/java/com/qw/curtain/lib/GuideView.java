@@ -92,10 +92,8 @@ public class GuideView extends View {
             realDrawHollows(fromCache, canvas);
             return;
         }
-        if (null == info.targetBound) {
-            info.targetBound = new Rect();
-            info.targetView.getDrawingRect(info.targetBound);
-        }
+        info.targetBound = new Rect();
+        info.targetView.getDrawingRect(info.targetBound);
         int[] viewLocation = new int[2];
         info.targetView.getLocationOnScreen(viewLocation);
         info.targetBound.left = viewLocation[0];

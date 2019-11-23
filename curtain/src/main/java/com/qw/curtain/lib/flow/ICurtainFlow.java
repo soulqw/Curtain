@@ -11,7 +11,7 @@ import androidx.annotation.IdRes;
 public interface ICurtainFlow {
 
     /**
-     * 推送到下个
+     * 到下个
      */
     void push();
 
@@ -25,7 +25,7 @@ public interface ICurtainFlow {
      *
      * @param curtainId
      */
-    void toNodeById(int curtainId);
+    void toCurtainById(int curtainId);
 
     /**
      * 找到当前展示curtain 中到view元素
