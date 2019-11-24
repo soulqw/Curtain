@@ -1,5 +1,5 @@
 # Curtain
- [![Hex.pm](https://img.shields.io/badge/download-0.0.5-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
+ [![Hex.pm](https://img.shields.io/badge/download-0.0.6-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
  [![Hex.pm](https://img.shields.io/badge/Jetpack-AndroidX-orange)]()
  [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 #### 一个更简洁好用的高亮蒙层库：
@@ -139,7 +139,9 @@ dependencies {
                 .show();
     }
 ```
-![image](https://upload-images.jianshu.io/upload_images/11595074-cef0c4894f88a5d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+效果:
+
+![image](https://upload-images.jianshu.io/upload_images/11595074-3c8fc50488da539b.gif?imageMogr2/auto-orient/strip)
 
 - 其他一些功能介绍:
 
@@ -156,10 +158,67 @@ dependencies {
                 .show();
     }
 ```
-#### demo 截图:
+#### CurtainFlow
 
-![image](https://upload-images.jianshu.io/upload_images/11595074-7c7a71b1de643c18.gif?imageMogr2/auto-orient/strip)
+ 如果你想按照一定的顺序去高亮一些列的View,可以方便的管理前进后退,减少方法的嵌套的场景下推荐使用:
+1. 仅仅需要按照步骤的Id,和构建你想要高亮的Curtain对象,统一交给CurtianFlow来处理
 
-![image](https://upload-images.jianshu.io/upload_images/11595074-3c8fc50488da539b.gif?imageMogr2/auto-orient/strip)
+```java
+  private void showInitGuide() {
+        new CurtainFlow.Builder()
+                .with(ID_STEP_1, getStepOneGuide())
+                .with(ID_STEP_2, getStepTwoGuide())
+                .with(ID_STEP_3, getStepThreeGuide())
+                .create()
+                .start(new CurtainFlow.CallBack() {
+                    @Override
+                    public void onProcess(int currentId, final CurtainFlowInterface curtainFlow) {
+                        switch (currentId) {
+                            case ID_STEP_2:
+                                //回到上个
+                                curtainFlow.findViewInCurrentCurtain(R.id.tv_to_last)
+                                        .setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                curtainFlow.pop();
+                                            }
+                                        });
+                                break;
+                            case ID_STEP_3:
+                                curtainFlow.findViewInCurrentCurtain(R.id.tv_to_last)
+                                        .setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                curtainFlow.pop();
+                                            }
+                                        });
+                                //重新来一遍，即回到第一步
+                                curtainFlow.findViewInCurrentCurtain(R.id.tv_retry)
+                                        .setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                curtainFlow.toCurtainById(ID_STEP_1);
+                                            }
+                                        });
+                                break;
+                        }
+                        //去下一个
+                        curtainFlow.findViewInCurrentCurtain(R.id.tv_to_next)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        curtainFlow.push();
+                                    }
+                                });
+                    }
+                });
+    }
+```
+2.效果
+
+![image](https://upload-images.jianshu.io/upload_images/11595074-a9661540698c66a4.gif?imageMogr2/auto-orient/strip)
+
+
+3. APi细节上可以参考Demo
 
 [Github地址](https://github.com/soulqw/Curtain)
