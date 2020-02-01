@@ -2,6 +2,7 @@ package com.qw.curtain.sample;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -85,6 +86,11 @@ public class CurtainFlowGuideActivity extends AppCompatActivity {
                                         curtainFlow.push();
                                     }
                                 });
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Toast.makeText(CurtainFlowGuideActivity.this, "all flow ended", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

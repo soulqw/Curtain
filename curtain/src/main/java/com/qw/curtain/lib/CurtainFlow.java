@@ -118,6 +118,9 @@ public class CurtainFlow implements CurtainFlowInterface {
         if (guider != null) {
             guider.dismissGuide();
         }
+        if (null != callBack) {
+            callBack.onFinish();
+        }
     }
 
     private void updateCurtainInfo(Curtain curtain) {
@@ -149,6 +152,11 @@ public class CurtainFlow implements CurtainFlowInterface {
          * @param curtainFlow 整个Flow对象 可控制前进，回退，找到当前Curtain中的Id等
          */
         void onProcess(int currentId, CurtainFlowInterface curtainFlow);
+
+        /**
+         * 当流程结束后触发
+         */
+        void onFinish();
 
     }
 
