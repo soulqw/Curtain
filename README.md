@@ -29,7 +29,7 @@ dependencies {
                 .show();
     }
 ```
-![image](https://upload-images.jianshu.io/upload_images/4346197-92c1944753653bbe.png)
+![image](https://upload-images.jianshu.io/upload_images/11595074-8647d1dd531f225e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&ynotemdtimestamp=1586492690971)
 
 - 如果你希望那个view的蒙层区域更大一些:
 
@@ -52,8 +52,6 @@ dependencies {
                 .show();
     }
 ```
-![image](https://upload-images.jianshu.io/upload_images/4346197-a5b0376674a7b373.png)
-
 - 如果你在蒙层上加上一些其他的元素,可以额外传入View布局:
 
 ```java
@@ -64,7 +62,7 @@ dependencies {
                 .show();
     }
 ```
-![image](https://upload-images.jianshu.io/upload_images/4346197-f0f7453aae3cec80.png)
+![image](https://upload-images.jianshu.io/upload_images/11595074-35d1f98e309d52de.gif?imageMogr2/auto-orient/strip&ynotemdtimestamp=1586492690971)
 
 - 如果你想监听蒙层的展示或者消失的回调:
 
@@ -216,7 +214,7 @@ dependencies {
 ```
 2.效果
 
-![image](https://upload-images.jianshu.io/upload_images/11595074-a9661540698c66a4.gif?imageMogr2/auto-orient/strip)
+![image](https://upload-images.jianshu.io/upload_images/11595074-36db1fcb908deea8.gif?imageMogr2/auto-orient/strip&ynotemdtimestamp=1586492690971)
 
 
 3. APi细节上可以参考Demo
