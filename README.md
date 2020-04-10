@@ -29,7 +29,7 @@ dependencies {
                 .show();
     }
 ```
-![image](https://upload-images.jianshu.io/upload_images/11595074-8647d1dd531f225e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&ynotemdtimestamp=1586492690971)
+![image](https://upload-images.jianshu.io/upload_images/11595074-8647d1dd531f225e.png)
 
 - 如果你希望那个view的蒙层区域更大一些:
 
@@ -62,7 +62,7 @@ dependencies {
                 .show();
     }
 ```
-![image](https://upload-images.jianshu.io/upload_images/11595074-35d1f98e309d52de.gif?imageMogr2/auto-orient/strip&ynotemdtimestamp=1586492690971)
+![image](https://upload-images.jianshu.io/upload_images/11595074-35d1f98e309d52de.gif)
 
 - 如果你想监听蒙层的展示或者消失的回调:
 
@@ -139,7 +139,7 @@ dependencies {
 ```
 效果:
 
-![image](https://upload-images.jianshu.io/upload_images/11595074-3c8fc50488da539b.gif?imageMogr2/auto-orient/strip)
+![image](https://upload-images.jianshu.io/upload_images/11595074-3c8fc50488da539b.gif)
 
 - 其他一些功能介绍:
 
@@ -214,7 +214,7 @@ dependencies {
 ```
 2.效果
 
-![image](https://upload-images.jianshu.io/upload_images/11595074-36db1fcb908deea8.gif?imageMogr2/auto-orient/strip&ynotemdtimestamp=1586492690971)
+![image](https://upload-images.jianshu.io/upload_images/11595074-36db1fcb908deea8.gif)
 
 
 3. APi细节上可以参考Demo
