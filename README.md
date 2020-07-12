@@ -219,4 +219,4 @@ dependencies {
 
 3. APi细节上可以参考Demo
 
-[Github地址](https://github.com/soulqw/Curtain)
+[设计原理详解](https://blog.csdn.net/u014626094/article/details/105430981)
