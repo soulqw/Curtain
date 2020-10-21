@@ -75,7 +75,7 @@ public class CurtainFlow implements CurtainFlowInterface {
     public void push() {
         int currentIndex = allCurtains.indexOfKey(currentCurtainId);
         int nextIndex = currentIndex + 1;
-        Curtain nextNode = allCurtains.valueAt(nextIndex);
+        Curtain nextNode = getNodeInFlow(allCurtains, nextIndex);
         if (null != nextNode) {
             doWhenCurtainUpdated(nextNode, nextIndex);
         } else {
@@ -90,7 +90,7 @@ public class CurtainFlow implements CurtainFlowInterface {
         if (lastIndex < 0) {
             return;
         }
-        Curtain lastNode = allCurtains.valueAt(lastIndex);
+        Curtain lastNode = getNodeInFlow(allCurtains, lastIndex);
         if (null != lastNode) {
             doWhenCurtainUpdated(lastNode, lastIndex);
         }
@@ -139,6 +139,15 @@ public class CurtainFlow implements CurtainFlowInterface {
         currentCurtainId = allCurtains.keyAt(index);
         if (null != callBack) {
             callBack.onProcess(currentCurtainId, this);
+        }
+    }
+
+    private Curtain getNodeInFlow(SparseArray<Curtain> flows, int index) {
+        try {
+            Curtain result = flows.valueAt(index);
+            return result;
+        } catch (Exception e) {
+            return null;
         }
     }
 
