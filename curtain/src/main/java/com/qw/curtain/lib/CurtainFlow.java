@@ -3,6 +3,8 @@ package com.qw.curtain.lib;
 import android.util.SparseArray;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
 import com.qw.curtain.lib.debug.CurtainDebug;
 import com.qw.curtain.lib.flow.CurtainFlowInterface;
 
@@ -142,15 +144,18 @@ public class CurtainFlow implements CurtainFlowInterface {
         }
     }
 
+    /**
+     * valueAt have different result in different android version
+     * https://github.com/soulqw/Curtain/issues/7
+     */
+    @Nullable
     private Curtain getNodeInFlow(SparseArray<Curtain> flows, int index) {
         try {
-            Curtain result = flows.valueAt(index);
-            return result;
+            return flows.valueAt(index);
         } catch (Exception e) {
             return null;
         }
     }
-
 
     public interface CallBack {
 

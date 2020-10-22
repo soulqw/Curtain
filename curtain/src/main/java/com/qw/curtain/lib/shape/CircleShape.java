@@ -7,7 +7,7 @@ import android.graphics.RectF;
 import com.qw.curtain.lib.HollowInfo;
 
 /**
- * 圆形
+ * Circle
  */
 public class CircleShape implements Shape {
 

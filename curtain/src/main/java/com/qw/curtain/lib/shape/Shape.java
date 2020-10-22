@@ -8,7 +8,7 @@ import com.qw.curtain.lib.HollowInfo;
 public interface Shape {
 
     /**
-     * 画你想要的任何形状
+     * draw any shape you want
      */
     void drawShape(Canvas canvas, Paint paint, HollowInfo info);
 
