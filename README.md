@@ -220,3 +220,4 @@ dependencies {
 3. APi细节上可以参考Demo
 
 [设计原理详解](https://blog.csdn.net/u014626094/article/details/105430981)
+##### 交流QQ群：714178759
