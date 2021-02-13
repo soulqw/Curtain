@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 8
-        versionName "0.0.8"
+        versionCode 9
+        versionName "0.0.9"
     }
 
     buildTypes {
@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    compileOnly 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly 'androidx.appcompat:appcompat:1.2.0'
     compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
 }
 
@@ -34,7 +34,7 @@ def gitUrl = 'https://github.com/soulqw/Curtain.git'
 
 def libName = "curtain"
 group = "com.qw"
-version = "0.0.8"
+version = "0.0.9"
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
