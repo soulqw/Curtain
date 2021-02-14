@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.qw.curtain.lib.Curtain;
 import com.qw.curtain.lib.IGuide;
+import com.qw.curtain.lib.Padding;
 import com.qw.curtain.lib.shape.RoundShape;
 
 public class SimpleGuideActivity extends AppCompatActivity {
@@ -55,7 +56,8 @@ public class SimpleGuideActivity extends AppCompatActivity {
                 //自定义高亮形状
                 .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(12))
                 //自定义高亮形状的Padding
-                .withPadding(findViewById(R.id.btn_shape_custom), 24)
+//                .withPadding(findViewById(R.id.btn_shape_custom), Padding.only(30,20))
+                .withPadding(findViewById(R.id.btn_shape_custom), Padding.all(10))
                 .setTopView(R.layout.view_guide_1)
                 .setCallBack(new Curtain.CallBack() {
                     @Override

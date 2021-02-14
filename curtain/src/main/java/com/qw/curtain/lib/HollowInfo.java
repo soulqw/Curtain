@@ -53,7 +53,7 @@ public class HollowInfo {
     /**
      * 透明区域的padding
      */
-    public int padding;
+    public Padding padding;
 
     /**
      * 指定的形状

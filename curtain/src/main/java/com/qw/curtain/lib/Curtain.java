@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
@@ -63,11 +64,20 @@ public class Curtain {
     }
 
     /**
-     * 指定区域的padding
-     *
-     * @param which 该view对应的蒙层区域
+     * @param paddingSize the size of padding in all directions
+     * @param which       the view will be set the padding
      */
-    public Curtain withPadding(@NonNull View which, int padding) {
+    public Curtain withPadding(@NonNull View which, int paddingSize) {
+        getHollowInfo(which).padding = Padding.all(paddingSize);
+        return this;
+    }
+
+    /**
+     * @param padding the describe of padding
+     * @param which   the view will be set the padding
+     * @see Padding  use Padding.all() or Padding.only() to build an padding
+     */
+    public Curtain withPadding(@NonNull View which, Padding padding) {
         getHollowInfo(which).padding = padding;
         return this;
     }
@@ -160,6 +170,7 @@ public class Curtain {
         return this;
     }
 
+    @MainThread
     public void show() {
         if (hollows.size() == 0) {
             CurtainDebug.w(Constance.TAG, "with out any views");

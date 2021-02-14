@@ -101,11 +101,7 @@ public class GuideView extends View {
         info.targetBound.right += info.targetBound.left;
         info.targetBound.bottom += info.targetBound.top;
         //计算padding(对内)
-        int padding = info.padding;
-        info.targetBound.left -= padding;
-        info.targetBound.top -= padding;
-        info.targetBound.right += padding;
-        info.targetBound.bottom += padding;
+        setTheBoundPadding(info);
         //计算偏移量(对外)
         if (info.getOffset((HollowInfo.VERTICAL)) > 0) {
             info.targetBound.top += info.getOffset(HollowInfo.VERTICAL);
@@ -121,6 +117,20 @@ public class GuideView extends View {
         //绘制镂空区域
         realDrawHollows(info, canvas);
         mPositionCache.put(info, info);
+    }
+
+    private void setTheBoundPadding(HollowInfo info) {
+        Padding padding = info.padding;
+        if (null == padding) {
+            return;
+        }
+        boolean isAllPadding = padding.isAll();
+        int allPadding = padding.getSizeByDirection(Padding.ALL);
+        Rect bound = info.targetBound;
+        bound.left -= isAllPadding ? allPadding : padding.getSizeByDirection(Padding.LEFT);
+        bound.top -= isAllPadding ? allPadding : padding.getSizeByDirection(Padding.TOP);
+        bound.right += isAllPadding ? allPadding : padding.getSizeByDirection(Padding.RIGHT);
+        bound.bottom += isAllPadding ? allPadding : padding.getSizeByDirection(Padding.BOTTOM);
     }
 
     @Override
