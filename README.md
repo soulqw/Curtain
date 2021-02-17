@@ -1,5 +1,5 @@
 # Curtain
- [![Hex.pm](https://img.shields.io/badge/download-0.0.8-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
+ [![Hex.pm](https://img.shields.io/badge/download-0.0.9-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
  [![Hex.pm](https://img.shields.io/badge/Jetpack-AndroidX-orange)]()
  [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 #### 一个更简洁好用的高亮蒙层库：
@@ -16,7 +16,7 @@
 
 ```java
 dependencies {
-    implementation 'com.qw:curtain:0.0.8'
+    implementation 'com.qw:curtain:0.0.9'
 }
 
 ```
