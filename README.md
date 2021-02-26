@@ -37,7 +37,7 @@ dependencies {
    private void showCurtain(){
         new Curtain(MainActivity.this)
                 .with(findViewById(R.id.textView))
-                .withPadding(findViewById(R.id.textView),24)
+                .withPadding(findViewById(R.id.textView),Padding.all(10))
                 .show();
     }
 
