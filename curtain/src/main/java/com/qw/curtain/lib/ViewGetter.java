@@ -13,10 +13,10 @@ import com.qw.curtain.lib.debug.CurtainDebug;
 public class ViewGetter {
 
     /**
-     * 获取AdapterView 如(ListView,GridView 等)中的ChildItem
+     * get the child item form adapter view such as ListView,GridView
      *
      * @param targetContainer such as ListView
-     * @param position        你需要的位置
+     * @param position        the position of the adapter view
      * @return ItemView
      * @see android.widget.ListView
      * @see android.widget.GridView
@@ -32,10 +32,10 @@ public class ViewGetter {
     }
 
     /**
-     * 获取RecyclerView 中的ChildItem
+     * get the child item of the recycler view
      *
      * @param targetContainer RecyclerView
-     * @param position        你需要的位置
+     * @param position        the position of the recycler view
      * @return ItemView
      */
     @Nullable

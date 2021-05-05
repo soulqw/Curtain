@@ -12,7 +12,6 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author cd5160866
- * 透明区域
  */
 public class HollowInfo {
 
@@ -25,12 +24,12 @@ public class HollowInfo {
     public static final int HORIZONTAL = 2 << SHIFT;
 
     /**
-     * 是否按照View背景形状自适应
+     * Whether the hollow，s shape will adjust the shape of the view automatic
      */
     private boolean autoAdaptViewBackGround = true;
 
     /**
-     * 存偏移量和方向的变量
+     * The mask of offset and the direction
      */
     private int mOffsetMask;
 
@@ -41,22 +40,22 @@ public class HollowInfo {
     }
 
     /**
-     * 目标View 用于定位和确定透明区域大小
+     * The target view to be highlight
      */
     public View targetView;
 
     /**
-     * 可自定义区域大小
+     * The Area of the highlight field
      */
     public Rect targetBound;
 
     /**
-     * 透明区域的padding
+     * The padding of the highlight field
      */
     public Padding padding;
 
     /**
-     * 指定的形状
+     * The shape of the highlight field
      */
     public Shape shape;
 
@@ -65,9 +64,9 @@ public class HollowInfo {
     }
 
     /**
-     * 指定形状
+     * set the  highlight shape
      *
-     * @param shape 形状
+     * @param shape  highlight shape
      */
     public void setShape(Shape shape) {
         this.shape = shape;
@@ -78,10 +77,10 @@ public class HollowInfo {
     }
 
     /**
-     * 设置透明区域的偏移量
+     * set the offset of the highlight field
      *
-     * @param offset    对外
-     * @param direction 方向
+     * @param offset    the offset
+     * @param direction the direction
      * @see direction
      */
     public void setOffset(int offset, @direction int direction) {
@@ -89,10 +88,10 @@ public class HollowInfo {
     }
 
     /**
-     * 获得某个方向的偏移量
+     * get the offset of the target direction
      *
-     * @param direction 方向
-     * @return offset
+     * @param direction the target direction
+     * @return offset of target direction
      * @see direction
      */
     public int getOffset(@direction int direction) {

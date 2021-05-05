@@ -7,7 +7,7 @@ import android.view.WindowManager;
 class InnerUtils {
 
     /**
-     * 获取屏幕的宽度
+     * get the width of the screen
      */
     static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context
@@ -18,7 +18,7 @@ class InnerUtils {
     }
 
     /**
-     * 获取屏幕的高度
+     * get the height of the screen
      */
     static int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context
@@ -28,6 +28,9 @@ class InnerUtils {
         return outMetrics.heightPixels;
     }
 
+    /**
+     * get the height of the status bar
+     */
     static int getStatusBarHeight(Context context) {
         int statusBarHeight = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");

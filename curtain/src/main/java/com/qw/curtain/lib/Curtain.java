@@ -68,8 +68,7 @@ public class Curtain {
      * @param which       the view will be set the padding
      */
     public Curtain withPadding(@NonNull View which, int paddingSize) {
-        getHollowInfo(which).padding = Padding.all(paddingSize);
-        return this;
+        return withPadding(which, Padding.all(paddingSize));
     }
 
     /**

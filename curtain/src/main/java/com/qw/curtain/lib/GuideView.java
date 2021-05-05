@@ -100,9 +100,9 @@ public class GuideView extends View {
         info.targetBound.top = viewLocation[1];
         info.targetBound.right += info.targetBound.left;
         info.targetBound.bottom += info.targetBound.top;
-        //计算padding(对内)
+        //set the padding
         setTheBoundPadding(info);
-        //计算偏移量(对外)
+        //set the offset
         if (info.getOffset((HollowInfo.VERTICAL)) > 0) {
             info.targetBound.top += info.getOffset(HollowInfo.VERTICAL);
             info.targetBound.bottom += info.getOffset(HollowInfo.VERTICAL);
@@ -114,7 +114,7 @@ public class GuideView extends View {
         //status bar height
         info.targetBound.top -= getStatusBarHeight(getContext());
         info.targetBound.bottom -= getStatusBarHeight(getContext());
-        //绘制镂空区域
+        //draw highlight info
         realDrawHollows(info, canvas);
         mPositionCache.put(info, info);
     }
@@ -138,12 +138,9 @@ public class GuideView extends View {
         setMeasuredDimension(getScreenWidth(getContext()), getScreenHeight(getContext()) * 2);
     }
 
-    /**
-     * 绘制镂空区域
-     */
     private void realDrawHollows(HollowInfo info, Canvas canvas) {
         if (!drawHollowSpaceIfMatched(info, canvas)) {
-            //没有匹配上，默认降级方案：画一个矩形
+            //did not match the shape so draw a rect
             canvas.drawRect(info.targetBound, mPaint);
         }
     }
