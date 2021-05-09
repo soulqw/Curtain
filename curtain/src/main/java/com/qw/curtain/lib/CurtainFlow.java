@@ -28,10 +28,10 @@ public class CurtainFlow implements CurtainFlowInterface {
     }
 
     /**
-     * 需要协同的 Curtain
+     * add the curtain to the flow
      *
-     * @param curtainId 添加的curtain 会按照id大小顺序先后展示，id越小 优先级越高
-     * @param curtain   你构建的Curtain对象
+     * @param curtainId the id of curtains ,they will execute order by curtainId
+     * @see Curtain
      */
     public void addCurtain(int curtainId, Curtain curtain) {
         allCurtains.append(curtainId, curtain);
@@ -42,7 +42,7 @@ public class CurtainFlow implements CurtainFlowInterface {
     }
 
     /**
-     * @param callBack 回调
+     * @param callBack the call back
      */
     public void start(final CallBack callBack) {
         this.callBack = callBack;
@@ -160,15 +160,16 @@ public class CurtainFlow implements CurtainFlowInterface {
     public interface CallBack {
 
         /**
-         * 每一步的Curtain展示将会回调
+         * will be called when each curtain is showing
          *
-         * @param currentId   这一步的id
-         * @param curtainFlow 整个Flow对象 可控制前进，回退，找到当前Curtain中的Id等
+         * @param currentId   the currentId
+         * @param curtainFlow the interface of the curtainFlow
+         * @see CurtainFlowInterface
          */
         void onProcess(int currentId, CurtainFlowInterface curtainFlow);
 
         /**
-         * 当流程结束后触发
+         * call when all the flow is finished
          */
         void onFinish();
 
@@ -183,10 +184,7 @@ public class CurtainFlow implements CurtainFlowInterface {
         }
 
         /**
-         * 需要协同的 Curtain
-         *
-         * @param curtainId 添加的curtain 会按照id大小顺序先后展示，id越小 优先级越高
-         * @param curtain   你构建的Curtain对象
+         * they will execute order by curtainId
          */
         public Builder with(int curtainId, Curtain curtain) {
             sc.append(curtainId, curtain);

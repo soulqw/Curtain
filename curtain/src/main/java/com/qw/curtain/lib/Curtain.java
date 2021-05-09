@@ -46,15 +46,15 @@ public class Curtain {
     }
 
     /**
-     * @param which 页面上任一要高亮的view
+     * @param which the view that will be highLight
      */
     public Curtain with(@NonNull View which) {
         return with(which, true);
     }
 
     /**
-     * @param which                     页面上任一要高亮的view
-     * @param isAutoAdaptViewBackGround 是否自动适配View背景形状 (不一定完全生效，如果无法满足的话，可自定义形状)
+     * @param which                     the view that will be highLight
+     * @param isAutoAdaptViewBackGround Whether the shape of highLight will adjust view,s shape automatic
      * @see #withShape(View, Shape)
      */
     public Curtain with(@NonNull View which, boolean isAutoAdaptViewBackGround) {
@@ -82,11 +82,11 @@ public class Curtain {
     }
 
     /**
-     * 指定蒙层大小
+     * the size of highLight area
      *
-     * @param which  以该View的左上角作为初始坐标
-     * @param width  宽
-     * @param height 高
+     * @param which  the view,s location on screen will be the origin point of the area
+     * @param width  the width
+     * @param height the height
      */
     public Curtain withSize(@NonNull View which, int width, int height) {
         getHollowInfo(which).targetBound = new Rect(0, 0, width, height);
@@ -94,11 +94,11 @@ public class Curtain {
     }
 
     /**
-     * 设置蒙层偏移量
+     * the offset of highLight area
      *
-     * @param which     view对应产生的蒙层
-     * @param offset    偏移量 px
-     * @param direction 偏移方向
+     * @param which     the view that will be highLight
+     * @param offset    the offset px
+     * @param direction the direction of offset
      */
     public Curtain withOffset(@NonNull View which, int offset, @HollowInfo.direction int direction) {
         getHollowInfo(which).setOffset(offset, direction);
@@ -106,10 +106,10 @@ public class Curtain {
     }
 
     /**
-     * 设置自定义形状
+     * the shape of highLight
      *
-     * @param which 目标view
-     * @param shape 形状
+     * @param which the view that will be highLight
+     * @param shape the shape of highLight shape
      */
     public Curtain withShape(@NonNull View which, Shape shape) {
         getHollowInfo(which).setShape(shape);
@@ -117,7 +117,7 @@ public class Curtain {
     }
 
     /**
-     * 自定义的引导页蒙层和镂空部分View
+     * set the embellish view of the curtain
      */
     public Curtain setTopView(@LayoutRes int layoutId) {
         this.topViewId = layoutId;
@@ -125,9 +125,9 @@ public class Curtain {
     }
 
     /**
-     * 设置蒙层背景颜色
+     * set the color of the curtain
      *
-     * @param color 颜色
+     * @param color the color
      */
     public Curtain setCurtainColor(int color) {
         this.curtainColor = color;
@@ -140,9 +140,9 @@ public class Curtain {
     }
 
     /**
-     * 是否允许回退关闭蒙层
+     * set the config whether can dismiss when back pressed
      *
-     * @param cancelBackPress 是否允许回退关闭蒙层
+     * @param cancelBackPress whether can dismiss when back pressed
      */
     public Curtain setCancelBackPressed(boolean cancelBackPress) {
         this.cancelBackPressed = cancelBackPress;
@@ -150,9 +150,9 @@ public class Curtain {
     }
 
     /**
-     * 设置蒙层展示回调回调
+     * set the call back of curtain show
      *
-     * @param callBack 如果你需要监听的话
+     * @param callBack the call back
      */
     public Curtain setCallBack(CallBack callBack) {
         this.callBack = callBack;
@@ -160,9 +160,10 @@ public class Curtain {
     }
 
     /**
-     * 设置蒙层出现的动画 默认渐隐
+     * set the animation the curtain will be showe
+     * the default config is alpha
      *
-     * @param animation 动画style
+     * @param animation the animation style
      */
     public Curtain setAnimationStyle(@StyleRes int animation) {
         this.animationStyle = animation;
@@ -218,12 +219,12 @@ public class Curtain {
     public interface CallBack {
 
         /**
-         * 展示成功
+         * call when show success
          */
         void onShow(IGuide iGuide);
 
         /**
-         * 消失
+         * call when dismiss
          */
         void onDismiss(IGuide iGuide);
 
