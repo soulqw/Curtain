@@ -14,8 +14,10 @@ import android.graphics.drawable.StateListDrawable;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.collection.ArrayMap;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static com.qw.curtain.lib.InnerUtils.getScreenHeight;
@@ -29,7 +31,7 @@ public class GuideView extends View {
 
     private HollowInfo[] mHollows;
 
-    private OptimizedMap<HollowInfo, HollowInfo> mPositionCache;
+    private Map<HollowInfo, HollowInfo> mPositionCache;
 
     private int mCurtainColor = 0x88000000;
 
@@ -52,7 +54,7 @@ public class GuideView extends View {
 
     private void init() {
         mPaint = new Paint(ANTI_ALIAS_FLAG);
-        mPositionCache = new OptimizedMap<>();
+        mPositionCache = new ArrayMap<>();
     }
 
     @Override
