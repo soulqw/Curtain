@@ -203,21 +203,24 @@ public class Curtain {
 
     public static class Param {
 
+        Context activity;
+
+        FragmentManager fragmentManager;
+
         SparseArray<HollowInfo> hollows;
+
+        int topLayoutRes;
+
+        CallBack callBack;
 
         boolean cancelBackPressed = true;
 
         int curtainColor = 0xAA000000;
 
-        int topLayoutRes;
-
+        /**
+         * default config is the alpha
+         */
         int animationStyle = R.style.dialogWindowAnim;
-
-        Context activity;
-
-        FragmentManager fragmentManager;
-
-        CallBack callBack;
 
     }
 

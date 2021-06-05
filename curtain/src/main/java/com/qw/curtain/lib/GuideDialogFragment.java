@@ -84,7 +84,7 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     }
 
     @Override
-    public void show(FragmentManager manager, String tag) {
+    public void show(@NonNull FragmentManager manager, String tag) {
         try {
             super.show(manager, tag);
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         if (null != param.callBack) {
             param.callBack.onDismiss(this);
