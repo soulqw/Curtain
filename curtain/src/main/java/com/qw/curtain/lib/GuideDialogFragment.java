@@ -3,6 +3,7 @@ package com.qw.curtain.lib;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 /**
@@ -26,37 +26,47 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
 
     private FrameLayout contentView;
 
-    private int animationStyle = R.style.dialogWindowAnim;
-
     private Dialog dialog;
-
-    private Curtain.CallBack callBack;
 
     private int topLayoutRes = 0;
 
     private GuideView guideView;
 
+    private Curtain.Param param;
+
+    public static GuideDialogFragment newInstance(Curtain.Param param) {
+        //build dialogFragment
+        GuideDialogFragment guider = new GuideDialogFragment();
+        guider.setParam(param);
+        guider.setCancelable(param.cancelBackPressed);
+        guider.setTopViewRes(param.topLayoutRes);
+
+        //build contentView
+        GuideView guideView = new GuideView(param.activity);
+        guideView.setCurtainColor(param.curtainColor);
+        SparseArray<HollowInfo> hollows = param.hollows;
+        HollowInfo[] tobeDraw = new HollowInfo[hollows.size()];
+        for (int i = 0; i < hollows.size(); i++) {
+            tobeDraw[i] = hollows.valueAt(i);
+        }
+        guideView.setHollowInfo(tobeDraw);
+        guider.setGuideView(guideView);
+
+        return guider;
+    }
+
     public void show() {
-        FragmentActivity activity = (FragmentActivity) guideView.getContext();
         guideView.setId(GUIDE_ID);
-        this.contentView = new FrameLayout(activity);
+        this.contentView = new FrameLayout(guideView.getContext());
         this.contentView.addView(guideView);
         if (topLayoutRes != 0) {
             updateTopView();
         }
-        dialog = new AlertDialog.Builder(activity, R.style.TransparentDialog)
-                .setView(contentView)
-                .create();
-        setAnimation(dialog);
-        show(activity.getSupportFragmentManager(), GuideDialogFragment.class.getSimpleName());
+        show(param.fragmentManager, Constance.CURTAIN_FRAGMENT);
     }
 
-    public void setAnimationStyle(int animationStyle) {
-        this.animationStyle = animationStyle;
-    }
-
-    public void setCallBack(Curtain.CallBack callBack) {
-        this.callBack = callBack;
+    public void setParam(Curtain.Param param) {
+        this.param = param;
     }
 
     public void setTopViewRes(int topLayoutRes) {
@@ -117,6 +127,12 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        if (dialog == null) {
+            dialog = new AlertDialog.Builder(requireActivity(), R.style.TransparentDialog)
+                    .setView(contentView)
+                    .create();
+            setAnimation(dialog);
+        }
         return dialog;
     }
 
@@ -127,16 +143,16 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
         } catch (Exception e) {
             return;
         }
-        if (null != callBack) {
-            callBack.onShow(this);
+        if (null != param.callBack) {
+            param.callBack.onShow(this);
         }
     }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        if (null != callBack) {
-            callBack.onDismiss(this);
+        if (null != param.callBack) {
+            param.callBack.onDismiss(this);
         }
     }
 
@@ -149,8 +165,8 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     }
 
     private void setAnimation(Dialog dialog) {
-        if (animationStyle != 0 && dialog != null && dialog.getWindow() != null) {
-            dialog.getWindow().setWindowAnimations(animationStyle);
+        if (param.animationStyle != 0 && dialog != null && dialog.getWindow() != null) {
+            dialog.getWindow().setWindowAnimations(param.animationStyle);
         }
     }
 
@@ -160,4 +176,5 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
         }
         LayoutInflater.from(contentView.getContext()).inflate(topLayoutRes, contentView, true);
     }
+
 }

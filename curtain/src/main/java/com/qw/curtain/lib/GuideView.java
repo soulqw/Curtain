@@ -11,6 +11,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.util.SparseArray;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,14 @@ public class GuideView extends View {
     public GuideView(@NonNull Context context) {
         super(context, null);
         init();
+    }
+
+    public void setHollowInfo(@NonNull SparseArray<HollowInfo> hollows) {
+        HollowInfo[] tobeDraw = new HollowInfo[hollows.size()];
+        for (int i = 0; i < hollows.size(); i++) {
+            tobeDraw[i] = hollows.valueAt(i);
+        }
+        setHollowInfo(tobeDraw);
     }
 
     public void setHollowInfo(@NonNull HollowInfo... hollows) {

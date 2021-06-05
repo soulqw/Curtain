@@ -1,5 +1,6 @@
 package com.qw.curtain.lib;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.util.SparseArray;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.qw.curtain.lib.debug.CurtainDebug;
 import com.qw.curtain.lib.shape.Shape;
@@ -22,27 +24,23 @@ import com.qw.curtain.lib.shape.Shape;
  */
 public class Curtain {
 
-    SparseArray<HollowInfo> hollows;
+    Param buildParams;
 
-    boolean cancelBackPressed = true;
-
-    int curtainColor = 0xAA000000;
-
-    int topViewId;
-
-    int animationStyle = 0;
-
-    FragmentActivity activity;
-
-    private CallBack callBack;
-
-    public Curtain(Fragment fragment) {
-        this(fragment.getActivity());
+    /**
+     * fragment must have an host,so it must attach to an activity
+     *
+     * @param fragment use curtain in the fragment
+     */
+    public Curtain(@NonNull Fragment fragment) {
+        this(fragment.requireActivity());
+        buildParams.fragmentManager = fragment.getChildFragmentManager();
     }
 
-    public Curtain(FragmentActivity activity) {
-        this.activity = activity;
-        this.hollows = new SparseArray<>();
+    public Curtain(@NonNull FragmentActivity activity) {
+        this.buildParams = new Param();
+        buildParams.activity = activity;
+        buildParams.hollows = new SparseArray<>();
+        buildParams.fragmentManager = activity.getSupportFragmentManager();
     }
 
     /**
@@ -120,7 +118,7 @@ public class Curtain {
      * set the embellish view of the curtain
      */
     public Curtain setTopView(@LayoutRes int layoutId) {
-        this.topViewId = layoutId;
+        this.buildParams.topLayoutRes = layoutId;
         return this;
     }
 
@@ -130,12 +128,12 @@ public class Curtain {
      * @param color the color
      */
     public Curtain setCurtainColor(int color) {
-        this.curtainColor = color;
+        this.buildParams.curtainColor = color;
         return this;
     }
 
     public Curtain setCurtainColorRes(@ColorRes int color) {
-        this.curtainColor = color;
+        this.buildParams.curtainColor = color;
         return this;
     }
 
@@ -145,7 +143,7 @@ public class Curtain {
      * @param cancelBackPress whether can dismiss when back pressed
      */
     public Curtain setCancelBackPressed(boolean cancelBackPress) {
-        this.cancelBackPressed = cancelBackPress;
+        this.buildParams.cancelBackPressed = cancelBackPress;
         return this;
     }
 
@@ -155,7 +153,7 @@ public class Curtain {
      * @param callBack the call back
      */
     public Curtain setCallBack(CallBack callBack) {
-        this.callBack = callBack;
+        this.buildParams.callBack = callBack;
         return this;
     }
 
@@ -166,12 +164,13 @@ public class Curtain {
      * @param animation the animation style
      */
     public Curtain setAnimationStyle(@StyleRes int animation) {
-        this.animationStyle = animation;
+        this.buildParams.animationStyle = animation;
         return this;
     }
 
     @MainThread
     public void show() {
+        SparseArray<HollowInfo> hollows = buildParams.hollows;
         if (hollows.size() == 0) {
             CurtainDebug.w(Constance.TAG, "with out any views");
             return;
@@ -186,27 +185,13 @@ public class Curtain {
             });
             return;
         }
-        GuideDialogFragment guider = new GuideDialogFragment();
-        guider.setCancelable(cancelBackPressed);
-        guider.setCallBack(callBack);
-        guider.setAnimationStyle(animationStyle);
-        guider.setTopViewRes(topViewId);
-        GuideView guideView = new GuideView(activity);
-        guideView.setCurtainColor(curtainColor);
-        addHollows(guideView);
-        guider.setGuideView(guideView);
-        guider.show();
-    }
-
-    void addHollows(GuideView guideView) {
-        HollowInfo[] tobeDraw = new HollowInfo[hollows.size()];
-        for (int i = 0; i < hollows.size(); i++) {
-            tobeDraw[i] = hollows.valueAt(i);
-        }
-        guideView.setHollowInfo(tobeDraw);
+        GuideDialogFragment
+                .newInstance(buildParams)
+                .show();
     }
 
     private HollowInfo getHollowInfo(View which) {
+        SparseArray<HollowInfo> hollows = buildParams.hollows;
         HollowInfo info = hollows.get(which.hashCode());
         if (null == info) {
             info = new HollowInfo(which);
@@ -214,6 +199,26 @@ public class Curtain {
             hollows.append(which.hashCode(), info);
         }
         return info;
+    }
+
+    public static class Param {
+
+        SparseArray<HollowInfo> hollows;
+
+        boolean cancelBackPressed = true;
+
+        int curtainColor = 0xAA000000;
+
+        int topLayoutRes;
+
+        int animationStyle = R.style.dialogWindowAnim;
+
+        Context activity;
+
+        FragmentManager fragmentManager;
+
+        CallBack callBack;
+
     }
 
     public interface CallBack {

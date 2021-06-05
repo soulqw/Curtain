@@ -51,11 +51,11 @@ public class CurtainFlow implements CurtainFlowInterface {
         }
         Curtain curtain = allCurtains.valueAt(0);
         currentCurtainId = allCurtains.keyAt(0);
-        if (curtain.hollows.size() == 0) {
+        if (curtain.buildParams.hollows.size() == 0) {
             CurtainDebug.w(Constance.TAG, "with out any views");
             return;
         }
-        View checkStatusView = curtain.hollows.valueAt(0).targetView;
+        View checkStatusView = curtain.buildParams.hollows.valueAt(0).targetView;
         if (checkStatusView.getWidth() == 0) {
             checkStatusView.post(new Runnable() {
                 @Override
@@ -126,13 +126,14 @@ public class CurtainFlow implements CurtainFlowInterface {
     }
 
     private void updateCurtainInfo(Curtain curtain) {
-        GuideView guideView = new GuideView(curtain.activity);
-        guideView.setCurtainColor(curtain.curtainColor);
-        curtain.addHollows(guideView);
+        Curtain.Param param = curtain.buildParams;
+        GuideView guideView = new GuideView(param.activity);
+        guideView.setCurtainColor(param.curtainColor);
+        guideView.setHollowInfo(param.hollows);
         guider.setGuideView(guideView);
-        guider.setCancelable(curtain.cancelBackPressed);
-        guider.setAnimationStyle(curtain.animationStyle);
-        guider.setTopViewRes(curtain.topViewId);
+        guider.setCancelable(param.cancelBackPressed);
+        guider.setTopViewRes(param.topLayoutRes);
+        guider.setParam(param);
     }
 
     private void doWhenCurtainUpdated(Curtain curtain, int index) {
