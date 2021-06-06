@@ -165,9 +165,18 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     }
 
     private void setAnimation(Dialog dialog) {
-        if (param.animationStyle != 0 && dialog != null && dialog.getWindow() != null) {
-            dialog.getWindow().setWindowAnimations(param.animationStyle);
+        if (dialog == null || dialog.getWindow() == null) {
+            return;
         }
+        if (param.animationStyle == Constance.STATE_NO_NEED_SET) {
+            return;
+        }
+        //set the default animation if not setted
+        dialog.getWindow().setWindowAnimations(
+                param.animationStyle == Constance.STATE_NOT_SET ?
+                        R.style.dialogWindowAnim
+                        : param.animationStyle
+        );
     }
 
     private void updateTopView() {

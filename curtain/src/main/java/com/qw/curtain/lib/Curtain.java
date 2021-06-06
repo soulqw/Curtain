@@ -158,13 +158,24 @@ public class Curtain {
     }
 
     /**
-     * set the animation the curtain will be showe
+     * set the animation the curtain will be show
      * the default config is alpha
      *
      * @param animation the animation style
+     * @see R.style.dialogWindowAnim
      */
     public Curtain setAnimationStyle(@StyleRes int animation) {
         this.buildParams.animationStyle = animation;
+        return this;
+    }
+
+    /**
+     * remove the curtain animation
+     */
+    public Curtain setNoCurtainAnimation(boolean isNotNeed) {
+        if (isNotNeed) {
+            this.setAnimationStyle(Constance.STATE_NO_NEED_SET);
+        }
         return this;
     }
 
@@ -217,10 +228,7 @@ public class Curtain {
 
         int curtainColor = 0xAA000000;
 
-        /**
-         * default config is the alpha
-         */
-        int animationStyle = R.style.dialogWindowAnim;
+        int animationStyle = Constance.STATE_NOT_SET;
 
     }
 
