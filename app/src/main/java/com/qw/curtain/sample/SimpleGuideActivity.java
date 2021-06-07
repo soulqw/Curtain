@@ -59,7 +59,7 @@ public class SimpleGuideActivity extends AppCompatActivity {
 //                .withPadding(findViewById(R.id.btn_shape_custom), Padding.only(30,20))
                 .withPadding(findViewById(R.id.btn_shape_custom), Padding.all(10))
                 .setTopView(R.layout.view_guide_1)
-                .setNoCurtainAnimation(true)
+//                .setNoCurtainAnimation(true)
                 .setCallBack(new Curtain.CallBack() {
                     @Override
                     public void onShow(final IGuide iGuide) {

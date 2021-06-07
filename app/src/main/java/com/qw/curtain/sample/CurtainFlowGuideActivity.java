@@ -98,12 +98,14 @@ public class CurtainFlowGuideActivity extends AppCompatActivity {
     private Curtain getStepOneGuide() {
         return new Curtain(CurtainFlowGuideActivity.this)
                 .with(findViewById(R.id.iv_guide_first))
+                .setNoCurtainAnimation(true)
                 .setTopView(R.layout.view_guide_flow1);
     }
 
     private Curtain getStepTwoGuide() {
         return new Curtain(CurtainFlowGuideActivity.this)
                 .with(findViewById(R.id.btn_shape_circle))
+                .setNoCurtainAnimation(true)
                 .setTopView(R.layout.view_guide_flow2);
     }
 
@@ -113,6 +115,7 @@ public class CurtainFlowGuideActivity extends AppCompatActivity {
                 .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(12))
                 //自定义高亮形状的Padding
                 .withPadding(findViewById(R.id.btn_shape_custom), 24)
+                .setNoCurtainAnimation(true)
                 .setTopView(R.layout.view_guide_flow3);
     }
 

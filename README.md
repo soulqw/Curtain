@@ -1,5 +1,5 @@
 # Curtain
- [![Hex.pm](https://img.shields.io/badge/download-0.0.9-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
+ [![Hex.pm](https://img.shields.io/badge/download-0.1.0-green)](https://bintray.com/beta/#/soulqw/AndroidFrame/curtain?tab=overview)
  [![Hex.pm](https://img.shields.io/badge/Jetpack-AndroidX-orange)]()
  [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 #### 一个更简洁好用的高亮蒙层库：
@@ -16,7 +16,7 @@
 
 ```java
 dependencies {
-    implementation 'com.qw:curtain:0.0.9'
+    implementation 'com.github.soulqw:Curtain:0.1.0'
 }
 
 ```
@@ -153,6 +153,8 @@ dependencies {
                 .setCurtainColor(0x88000000)
                 // 设置蒙层出现的动画 默认渐隐
                 .setAnimationStyle(R.style.testAnimation)
+                // 如果不需要任何动画效果的话
+                .setNoCurtainAnimation(true)
                 .show();
     }
 ```
