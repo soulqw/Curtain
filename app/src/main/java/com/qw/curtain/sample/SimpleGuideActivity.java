@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.qw.curtain.lib.Curtain;
 import com.qw.curtain.lib.IGuide;
+import com.qw.curtain.lib.OnViewInTopClickListener;
 import com.qw.curtain.lib.Padding;
 import com.qw.curtain.lib.shape.RoundShape;
 
@@ -60,21 +61,10 @@ public class SimpleGuideActivity extends AppCompatActivity {
                 .withPadding(findViewById(R.id.btn_shape_custom), Padding.all(10))
                 .setTopView(R.layout.view_guide_1)
 //                .setNoCurtainAnimation(true)
-                .setCallBack(new Curtain.CallBack() {
+                .addOnTopViewClickListener(R.id.tv_i_know, new OnViewInTopClickListener<IGuide>() {
                     @Override
-                    public void onShow(final IGuide iGuide) {
-                        iGuide.findViewByIdInTopView(R.id.tv_i_know)
-                                .setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        iGuide.dismissGuide();
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onDismiss(IGuide iGuide) {
-                        showThirdGuide();
+                    public void onClick(View current, IGuide currentHost) {
+                        currentHost.dismissGuide();
                     }
                 }).show();
     }
@@ -84,21 +74,10 @@ public class SimpleGuideActivity extends AppCompatActivity {
         new Curtain(SimpleGuideActivity.this)
                 .with(findViewById(R.id.btn_open_left))
                 .setTopView(R.layout.view_guide_2)
-                .setCallBack(new Curtain.CallBack() {
+                .addOnTopViewClickListener(R.id.tv_i_know, new OnViewInTopClickListener<IGuide>() {
                     @Override
-                    public void onShow(final IGuide iGuide) {
-                        iGuide.findViewByIdInTopView(R.id.tv_i_know)
-                                .setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        iGuide.dismissGuide();
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onDismiss(IGuide iGuide) {
-
+                    public void onClick(View current, IGuide currentHost) {
+                        currentHost.dismissGuide();
                     }
                 }).show();
     }

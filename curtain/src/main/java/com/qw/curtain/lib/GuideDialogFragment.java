@@ -51,7 +51,6 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
         }
         guideView.setHollowInfo(tobeDraw);
         guider.setGuideView(guideView);
-
         return guider;
     }
 
@@ -184,6 +183,23 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
             contentView.removeViewAt(1);
         }
         LayoutInflater.from(contentView.getContext()).inflate(topLayoutRes, contentView, true);
+        //on top view click listeners
+        SparseArray<OnViewInTopClickListener> listeners = param.topViewOnClickListeners;
+        int onClickListenersSize = listeners.size();
+        for (int i = 0; i < onClickListenersSize; i++) {
+            int idRes = listeners.keyAt(i);
+            final OnViewInTopClickListener<Object> listener = listeners.valueAt(i);
+            View view = contentView.findViewById(idRes);
+            if (null == view) {
+                throw new NullPointerException("the target view was not find in the top view, check your setTopView layout res first");
+            }
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(v, GuideDialogFragment.this);
+                }
+            });
+        }
     }
 
 }

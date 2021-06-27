@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -115,10 +116,23 @@ public class Curtain {
     }
 
     /**
-     * set the embellish view of the curtain
+     * set the describe view of the curtain
      */
     public Curtain setTopView(@LayoutRes int layoutId) {
         this.buildParams.topLayoutRes = layoutId;
+        return this;
+
+    }
+
+    /**
+     * set the onClick in the top view
+     * this method base on setTopView
+     * @param viewId          the view in top view
+     * @param onClickListener the onClickListener
+     * @see #setTopView(int)
+     */
+    public Curtain addOnTopViewClickListener(@IdRes int viewId, OnViewInTopClickListener<IGuide> onClickListener) {
+        this.buildParams.topViewOnClickListeners.append(viewId, onClickListener);
         return this;
     }
 
@@ -230,6 +244,8 @@ public class Curtain {
 
         int animationStyle = Constance.STATE_NOT_SET;
 
+        SparseArray<OnViewInTopClickListener> topViewOnClickListeners = new SparseArray<>();
+
     }
 
     public interface CallBack {
@@ -237,7 +253,7 @@ public class Curtain {
         /**
          * call when show success
          */
-        void onShow(IGuide iGuide);
+        void onShow(IGuide curtain);
 
         /**
          * call when dismiss
