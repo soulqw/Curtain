@@ -155,7 +155,14 @@ dependencies {
                 .setAnimationStyle(R.style.testAnimation)
                 // 如果不需要任何动画效果的话
                 .setNoCurtainAnimation(true)
-                .show();
+                //add onclick listener in the top view
+                .addOnTopViewClickListener(R.id.tv_i_know, new OnViewInTopClickListener<IGuide>() {
+                    @Override
+                    public void onClick(View current, IGuide currentHost) {
+                     currentHost.dismissGuide();
+                    }
+                })
+               .show();
     }
 ```
 #### CurtainFlow

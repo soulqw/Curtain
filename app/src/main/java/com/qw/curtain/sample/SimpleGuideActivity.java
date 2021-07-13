@@ -61,12 +61,15 @@ public class SimpleGuideActivity extends AppCompatActivity {
                 .withPadding(findViewById(R.id.btn_shape_custom), Padding.all(10))
                 .setTopView(R.layout.view_guide_1)
 //                .setNoCurtainAnimation(true)
+                //add onclick listener in the top view
                 .addOnTopViewClickListener(R.id.tv_i_know, new OnViewInTopClickListener<IGuide>() {
                     @Override
                     public void onClick(View current, IGuide currentHost) {
+                        //close the
                         currentHost.dismissGuide();
                     }
-                }).show();
+                })
+                .show();
     }
 
 
