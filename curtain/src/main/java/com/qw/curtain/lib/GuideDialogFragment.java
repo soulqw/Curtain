@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -127,9 +126,10 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         if (dialog == null) {
-            dialog = new AlertDialog.Builder(requireActivity(), R.style.TransparentDialog)
-                    .setView(contentView)
-                    .create();
+            dialog = param.isInterceptTouchEvent ?
+                    new Dialog(requireActivity(), R.style.TransparentDialog) :
+                    new NoInterceptAlertDialog(requireActivity(), R.style.TransparentDialog);
+            dialog.setContentView(contentView);
             setAnimation(dialog);
         }
         return dialog;

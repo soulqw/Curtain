@@ -193,6 +193,17 @@ public class Curtain {
         return this;
     }
 
+    /**
+     * set the curtain will intercept the touchEvent when it above your view
+     *
+     * @param isIntercept the touch event will be intercept when it is ture, the default config
+     *                    is the true
+     */
+    public Curtain setInterceptTouchEvent(boolean isIntercept) {
+        this.buildParams.isInterceptTouchEvent = isIntercept;
+        return this;
+    }
+
     @MainThread
     public void show() {
         SparseArray<HollowInfo> hollows = buildParams.hollows;
@@ -239,6 +250,8 @@ public class Curtain {
         CallBack callBack;
 
         boolean cancelBackPressed = true;
+
+        boolean isInterceptTouchEvent = true;
 
         int curtainColor = 0xAA000000;
 
