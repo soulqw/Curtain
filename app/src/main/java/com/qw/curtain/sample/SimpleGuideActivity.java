@@ -61,6 +61,8 @@ public class SimpleGuideActivity extends AppCompatActivity {
                 .withPadding(findViewById(R.id.btn_shape_custom), Padding.all(10))
                 .setTopView(R.layout.view_guide_1)
 //                .setNoCurtainAnimation(true)
+                //如果你不希望Curtain拦截蒙层之下的事件的话
+//                .setInterceptTouchEvent(false)
                 //add onclick listener in the top view
                 .addOnTopViewClickListener(R.id.tv_i_know, new OnViewInTopClickListener<IGuide>() {
                     @Override
