@@ -152,12 +152,12 @@ dependencies {
                     //自定义高亮形状
                     .withShape(findViewById(R.id.btn_shape_custom), new RoundShape(12))
                     //自定义高亮形状的Padding
-    //                .withPadding(findViewById(R.id.btn_shape_custom), Padding.only(30,20))
+    //              .withPadding(findViewById(R.id.btn_shape_custom), Padding.only(30,20))
                     .withPadding(findViewById(R.id.btn_shape_custom), Padding.all(10))
                     .setTopView(R.layout.view_guide_1)
-    //                .setNoCurtainAnimation(true)
+    //              .setNoCurtainAnimation(true)
                     //如果你不希望Curtain拦截蒙层之下的事件的话
-    //                .setInterceptTouchEvent(false)
+    //              .setInterceptTouchEvent(false)
                     //add onclick listener in the top view
                     .addOnTopViewClickListener(R.id.tv_i_know, new OnViewInTopClickListener<IGuide>() {
                         @Override
