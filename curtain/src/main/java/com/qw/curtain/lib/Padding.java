@@ -20,7 +20,7 @@ public class Padding {
 
     static final int BOTTOM = 4 << 1;
 
-    private SparseArray<Integer> paddingArrays;
+    private final SparseArray<Integer> paddingArrays;
 
     @IntDef(flag = true,
             value = {ALL, LEFT, TOP, RIGHT, BOTTOM})

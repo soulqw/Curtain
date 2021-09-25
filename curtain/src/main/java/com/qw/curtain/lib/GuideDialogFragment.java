@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.qw.curtain.lib.dialog.NoInterceptActivityDialog;
+import com.qw.curtain.lib.dialog.NoInterceptViewAlertDialog;
+
 /**
  * @author cd5160866
  */
@@ -126,9 +129,14 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         if (dialog == null) {
-            dialog = param.isInterceptTouchEvent ?
-                    new Dialog(requireActivity(), R.style.TransparentDialog) :
-                    new NoInterceptAlertDialog(requireActivity(), R.style.TransparentDialog);
+            boolean isInterceptAll = param.isInterceptTouchEvent && param.isInterceptTarget;
+            if (isInterceptAll) {
+                dialog = new Dialog(requireActivity(), R.style.TransparentDialog);
+            } else {
+                dialog = !param.isInterceptTouchEvent ?
+                        new NoInterceptActivityDialog(requireActivity(), R.style.TransparentDialog) :
+                        new NoInterceptViewAlertDialog(requireActivity(), R.style.TransparentDialog, param.hollows);
+            }
             dialog.setContentView(contentView);
             setAnimation(dialog);
         }

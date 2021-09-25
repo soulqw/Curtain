@@ -1,4 +1,4 @@
-package com.qw.curtain.lib;
+package com.qw.curtain.lib.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,9 +7,9 @@ import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 
-public class NoInterceptAlertDialog extends Dialog {
+public class NoInterceptActivityDialog extends Dialog {
 
-    protected NoInterceptAlertDialog(@NonNull Context context, int themeResId) {
+    public NoInterceptActivityDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
     }
 

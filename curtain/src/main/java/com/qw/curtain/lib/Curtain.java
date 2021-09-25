@@ -127,6 +127,7 @@ public class Curtain {
     /**
      * set the onClick in the top view
      * this method base on setTopView
+     *
      * @param viewId          the view in top view
      * @param onClickListener the onClickListener
      * @see #setTopView(int)
@@ -194,13 +195,23 @@ public class Curtain {
     }
 
     /**
+     * set whether the curtain will intercept the high light view, the default config is true
+     *
+     * @param isInterceptTargetView is intercept target view,s onclick、onLongClick and so on
+     */
+    public Curtain setInterceptTargetView(boolean isInterceptTargetView) {
+        this.buildParams.isInterceptTarget = isInterceptTargetView;
+        return this;
+    }
+
+    /**
      * set the curtain will intercept the touchEvent when it above your view
      *
-     * @param isIntercept the touch event will be intercept when it is ture, the default config
-     *                    is the true
+     * @param isInterceptAll the touch event will be intercept when it is true, the default config
+     *                       is true
      */
-    public Curtain setInterceptTouchEvent(boolean isIntercept) {
-        this.buildParams.isInterceptTouchEvent = isIntercept;
+    public Curtain setInterceptTouchEvent(boolean isInterceptAll) {
+        this.buildParams.isInterceptTouchEvent = isInterceptAll;
         return this;
     }
 
@@ -252,6 +263,8 @@ public class Curtain {
         boolean cancelBackPressed = true;
 
         boolean isInterceptTouchEvent = true;
+
+        boolean isInterceptTarget = true;
 
         int curtainColor = 0xAA000000;
 
