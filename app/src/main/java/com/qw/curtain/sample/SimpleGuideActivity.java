@@ -2,6 +2,7 @@ package com.qw.curtain.sample;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,13 @@ public class SimpleGuideActivity extends AppCompatActivity {
         });
         //first guide
         showInitGuide();
+
+        findViewById(R.id.btn_shape_custom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "custom click", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
@@ -61,7 +69,9 @@ public class SimpleGuideActivity extends AppCompatActivity {
                 .withPadding(findViewById(R.id.btn_shape_custom), Padding.all(10))
                 .setTopView(R.layout.view_guide_1)
 //                .setNoCurtainAnimation(true)
-                //如果你不希望Curtain拦截蒙层之下的事件的话
+                //如果你希望高亮的目标View仍然可以响应touch事件的话(默认true)
+                .setInterceptTargetView(false)
+                //如果你不希望Curtain拦截蒙层之下的事件的话(默认true)
 //                .setInterceptTouchEvent(false)
                 //add onclick listener in the top view
                 .addOnTopViewClickListener(R.id.tv_i_know, new OnViewInTopClickListener<IGuide>() {

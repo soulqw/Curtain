@@ -32,19 +32,38 @@
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/btn_shape_custom"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/selector_shape_test"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="自定义形状"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_shape_custom"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_shape_test"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="自定义形状"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_shape_test"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="自定义形状V2"
+                android:textColor="#ffffff"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/btn_open_left"
