@@ -1,6 +1,7 @@
 package com.qw.curtain.sample;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.qw.curtain.lib.Padding;
 import com.qw.curtain.lib.shape.RoundShape;
 
 public class SimpleGuideActivity extends AppCompatActivity {
+
+    private static String TAG = "SimpleGuideActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,8 @@ public class SimpleGuideActivity extends AppCompatActivity {
 //                .setNoCurtainAnimation(true)
                 //如果你希望高亮的目标View仍然可以响应touch事件的话(默认true)
                 .setInterceptTargetView(false)
+                //offset
+//                .withOffset(findViewById(R.id.btn_shape_circle),20, HollowInfo.HORIZONTAL)
                 //如果你不希望Curtain拦截蒙层之下的事件的话(默认true)
 //                .setInterceptTouchEvent(false)
                 //add onclick listener in the top view
@@ -79,6 +84,19 @@ public class SimpleGuideActivity extends AppCompatActivity {
                     public void onClick(View current, IGuide currentHost) {
                         //close the
                         currentHost.dismissGuide();
+                    }
+                })
+                .setCallBack(new Curtain.CallBack() {
+                    @Override
+                    public void onShow(IGuide curtain) {
+                        //get top view when curtain showed
+                        Log.d(TAG, "on guide show: " + curtain.getCurrentTopView()
+                                + "\n and size is" + curtain.getCurrentTopView().getWidth() + " " + curtain.getCurrentTopView().getHeight());
+                    }
+
+                    @Override
+                    public void onDismiss(IGuide iGuide) {
+
                     }
                 })
                 .show();

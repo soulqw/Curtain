@@ -15,13 +15,15 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class HollowInfo {
 
-    private static final int SHIFT = 30;
+    private static final int SHIFT = 29;
 
     private static final int MODE_MASK = 0x3 << SHIFT;
 
     public static final int VERTICAL = 1 << SHIFT;
 
     public static final int HORIZONTAL = 2 << SHIFT;
+
+    public static final int BOTH = 3 << SHIFT;
 
     /**
      * Whether the hollow，s shape will adjust the shape of the view automatic
@@ -34,7 +36,7 @@ public class HollowInfo {
     private int mOffsetMask;
 
     @IntDef(flag = true,
-            value = {VERTICAL, HORIZONTAL})
+            value = {VERTICAL, HORIZONTAL, BOTH})
     @Retention(RetentionPolicy.SOURCE)
     public @interface direction {
     }
@@ -66,7 +68,7 @@ public class HollowInfo {
     /**
      * set the  highlight shape
      *
-     * @param shape  highlight shape
+     * @param shape highlight shape
      */
     public void setShape(Shape shape) {
         this.shape = shape;

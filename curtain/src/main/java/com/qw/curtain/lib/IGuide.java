@@ -25,6 +25,13 @@ public interface IGuide {
     void updateTopView(@LayoutRes int layoutId);
 
     /**
+     * get current top view
+     *
+     * @return current top view
+     */
+    View getCurrentTopView();
+
+    /**
      * if you want do more operate in top view (onClickListener or onTouchListener)
      * you can find it by this method
      * if you just need an onclick listener in top view you can use Curtain.addOnTopViewClickListener instead

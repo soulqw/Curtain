@@ -114,6 +114,24 @@ public class GuideView extends View {
         //set the padding
         setTheBoundPadding(info);
         //set the offset
+        setHollowOffset(info);
+        //status bar height
+        info.targetBound.top -= getStatusBarHeight(getContext());
+        info.targetBound.bottom -= getStatusBarHeight(getContext());
+        //draw highlight info
+        realDrawHollows(info, canvas);
+        mPositionCache.put(info, info);
+    }
+
+    private void setHollowOffset(HollowInfo info) {
+        if (info.getOffset((HollowInfo.BOTH)) > 0) {
+            int offset = info.getOffset(HollowInfo.BOTH);
+            info.targetBound.left += offset;
+            info.targetBound.top += offset;
+            info.targetBound.bottom += offset;
+            info.targetBound.right += offset;
+            return;
+        }
         if (info.getOffset((HollowInfo.VERTICAL)) > 0) {
             info.targetBound.top += info.getOffset(HollowInfo.VERTICAL);
             info.targetBound.bottom += info.getOffset(HollowInfo.VERTICAL);
@@ -122,12 +140,6 @@ public class GuideView extends View {
             info.targetBound.right += info.getOffset(HollowInfo.HORIZONTAL);
             info.targetBound.left += info.getOffset(HollowInfo.HORIZONTAL);
         }
-        //status bar height
-        info.targetBound.top -= getStatusBarHeight(getContext());
-        info.targetBound.bottom -= getStatusBarHeight(getContext());
-        //draw highlight info
-        realDrawHollows(info, canvas);
-        mPositionCache.put(info, info);
     }
 
     private void setTheBoundPadding(HollowInfo info) {

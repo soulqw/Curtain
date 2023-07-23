@@ -66,6 +66,7 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
         show(param.fragmentManager, Constance.CURTAIN_FRAGMENT);
     }
 
+
     public void setParam(Curtain.Param param) {
         this.param = param;
     }
@@ -113,6 +114,17 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
     }
 
     @Override
+    @Nullable
+    public View getCurrentTopView() {
+        try {
+            return contentView.getChildAt(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public <T extends View> T findViewByIdInTopView(int id) {
         if (null == contentView) {
             return null;
@@ -138,21 +150,17 @@ public class GuideDialogFragment extends DialogFragment implements IGuide {
                         new NoInterceptViewAlertDialog(requireActivity(), R.style.TransparentDialog, param.hollows);
             }
             dialog.setContentView(contentView);
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialogInterface) {
+                    if (null != param.callBack) {
+                        param.callBack.onShow(GuideDialogFragment.this);
+                    }
+                }
+            });
             setAnimation(dialog);
         }
         return dialog;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        try {
-            super.onActivityCreated(savedInstanceState);
-        } catch (Exception e) {
-            return;
-        }
-        if (null != param.callBack) {
-            param.callBack.onShow(this);
-        }
     }
 
     @Override
